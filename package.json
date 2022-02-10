@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "ts-node ./server/server.ts"
+    "server": "ts-node ./server/server.ts",
+    "format": "prettier . --ignore-path .gitignore",
+    "format:fix": "prettier . --ignore-path .gitignore --fix"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +45,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
     "typescript": "~4.5.2"
   }

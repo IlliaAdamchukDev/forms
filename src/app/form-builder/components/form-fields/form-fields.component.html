@@ -1,5 +1,5 @@
 <div [formGroup] = "form" [ngSwitch]='field' class="element" (click) = "changeType($event)">
-    <input [formControlName] = "key" [ngStyle] = "styles" [required]="styles?.required ?? false" [placeholder]="styles?.placeholder ?? '' | cut" type="text" *ngSwitchCase="'input'" [readOnly] = '!isChangable'>
+    <input [formControlName] = "key"[ngStyle] = "styles" [required]="styles?.required ?? false" [placeholder]="styles?.placeholder ?? '' | cut" type="text" *ngSwitchCase="'input'" [readOnly] = '!isChangable'>
     <textarea [class.required] = "styles?.required ?? false" [formControlName] = "key" [ngStyle] = "styles" [required]="styles?.required ?? false" [placeholder]="styles?.placeholder ?? '' | cut" cols="30" rows="3" *ngSwitchCase="'textarea'" [readOnly] = '!isChangable'></textarea>
     <button [ngStyle] = "styles"  *ngSwitchCase="'button'" (click) = "message()">Button</button>
     <div class="checkbox" *ngSwitchCase="'checkbox'">
