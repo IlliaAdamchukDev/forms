@@ -1,0 +1,27 @@
+$margin2perc: 2%;
+$silver_color: silver;
+
+.accordion-element-styles {
+    background-color: #f5f5f5;
+    font-size: 24px;
+    border: solid $silver_color 1px;
+    margin: $margin2perc;
+    .add {
+        button {
+            height: 40px;
+            border: solid grey 1px;
+        }  
+    }
+}
+
+.form-styles {
+    font-size: 0.6em;
+    div{
+        display: grid;
+        grid-template-columns: minmax(50%,auto) minmax(50%,auto);
+        margin: $margin2perc 0;
+        label {
+            text-align: left;
+        }
+    }
+}

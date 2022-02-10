@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.silver-border {
+    border: solid silver 1px;
+}
+
+.hover-scale {
+    transition: 1s;
+    &:hover {
+        cursor: pointer;
+        transition: 1s;
+        transform: scale(1.1);
+    }
+}

@@ -1,0 +1,8 @@
+<div class="form-centring">
+    <form [formGroup] = "auth" class="login">
+        <label>LOGIN</label>
+        <app-custom-input [inputType]="'email'" [inputTitle] = "'Enter your email:'" formControlName = "email"></app-custom-input>
+        <app-custom-input [inputType]="'password'" [inputTitle] = "'Enter your password:'" formControlName = "password"></app-custom-input>
+        <button (click)="login()" class="hover-scale">Login</button>
+    </form>
+</div>

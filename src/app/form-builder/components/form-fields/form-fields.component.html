@@ -1,0 +1,14 @@
+<div [formGroup] = "form" [ngSwitch]='field' class="element" (click) = "changeType($event)">
+    <input [formControlName] = "key" [ngStyle] = "styles" [required]="styles?.required ?? false" [placeholder]="styles?.placeholder ?? '' | cut" type="text" *ngSwitchCase="'input'" [readOnly] = '!isChangable'>
+    <textarea [class.required] = "styles?.required ?? false" [formControlName] = "key" [ngStyle] = "styles" [required]="styles?.required ?? false" [placeholder]="styles?.placeholder ?? '' | cut" cols="30" rows="3" *ngSwitchCase="'textarea'" [readOnly] = '!isChangable'></textarea>
+    <button [ngStyle] = "styles"  *ngSwitchCase="'button'" (click) = "message()">Button</button>
+    <div class="checkbox" *ngSwitchCase="'checkbox'">
+        <label>
+            Checkbox <input [formControlName] = "key" [required]="styles?.required ?? false" [ngStyle] = "styles" type="checkbox" [readOnly] = '!isChangable'>
+        </label>
+    </div>
+    <select [formControlName] = "key" [ngStyle] = "styles" *ngSwitchCase="'select'" [required]="styles?.required ?? false">
+        <option>Option 1</option>
+    </select>
+    <span [class.required] = "styles?.required ?? false"></span>
+</div>
