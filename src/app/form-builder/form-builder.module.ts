@@ -8,12 +8,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from '../shared/shared.module';
 
 import { FormBuilderComponent } from './form-builder.component';
 import { FormFieldsComponent } from './components/form-fields/form-fields.component';
 import { AccordionElementComponent } from './components/accordion-element/accordion-element.component';
 import { FormsGuard } from './guards/forms.guard';
-import { CutPipe } from '../shared/pipe/cut.pipe';
 import { metaReducers, reducers } from './reducers';
 import { environment } from '../../environments/environment';
 
@@ -26,7 +26,6 @@ const formRoutes: Routes =[
     FormBuilderComponent,
     FormFieldsComponent,
     AccordionElementComponent,
-    CutPipe
   ],
   imports: [
     CommonModule,
@@ -35,6 +34,7 @@ const formRoutes: Routes =[
     ReactiveFormsModule,
     MatExpansionModule,
     BrowserAnimationsModule,
+    SharedModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot(),
     StoreModule.forRoot(reducers, {
