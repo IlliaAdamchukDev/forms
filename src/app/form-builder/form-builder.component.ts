@@ -95,9 +95,9 @@ export class FormBuilderComponent {
           'width' : "",
           'placeholder' : "",
           'required' : false,
-          'border-style' : "solid",
-          'border-color' : "#717171",
-          'border-width' : "1px",
+          'border-style' : "",
+          'border-color' : "",
+          'border-width' : "",
           'font-size' : "",
           'font-weight' : "",
           'color' : ""

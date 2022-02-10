@@ -4,6 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { FieldStyles } from '../../reducers/field/field.reducer';
 import { selectFields } from '../../reducers/field/field.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../../shared/dialog/dialog.component'
 
 @Component({
   selector: 'app-form-fields',
@@ -17,7 +19,7 @@ export class FormFieldsComponent{
   notifier = new Subject();
   styles !: FieldStyles;
 
-  constructor (private store$ : Store) {
+  constructor (private store$ : Store, private dialog: MatDialog) {
     this.fields$.pipe(takeUntil(this.notifier))
     .subscribe((fields)=>{
       let el = fields.find((field : {id : number, styles : FieldStyles}) => (field.id === this.key))
@@ -77,7 +79,11 @@ export class FormFieldsComponent{
       return;
     }
     if(this.form.invalid){
-      alert("Check if all required fields are filled!");
+      this.dialog.open(DialogComponent, {
+        data : {
+          message: "Check if all required fields are filled!",
+        }
+      })
       return;
     }
     let message = "";
@@ -86,6 +92,10 @@ export class FormFieldsComponent{
       message = message+this.form.value[key]+'\n';
     }
     message= message + 'Succesfully sended!';
-    alert(message);
+    this.dialog.open(DialogComponent, {
+      data : {
+        message
+      }
+    })
   }
 }

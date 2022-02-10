@@ -69,35 +69,13 @@ export class AccordionElementComponent {
 
   sendStyles () {
     this.store$.dispatch(new changeStylesAction({
-      styles: {
-        'height': this.fieldStyles.controls['height']?.value ?? "",
-        'width' : this.fieldStyles.controls['width']?.value ?? "",
-        'placeholder' : this.fieldStyles.controls['placeholder']?.value ?? "",
-        'required' : this.fieldStyles.controls['required'].value === "required" ? true : false,
-        'border-style' : this.fieldStyles.controls['border-style']?.value ?? "",
-        'border-color' : this.fieldStyles.controls['border-color']?.value ?? "#717171",
-        'border-width' : this.fieldStyles.controls['border-width']?.value ?? "",
-        'font-size' : this.fieldStyles.controls['font-size']?.value ?? "",
-        'font-weight' : this.fieldStyles.controls['font-weight']?.value ?? "",
-        'color' : this.fieldStyles.controls['color']?.value ?? ""
-      }
+      styles: this.fieldStyles.value
     }))
   }
 
   sendFormStyles () {
     this.store$.dispatch(new changeFormStylesAction({
-      styles: {
-        'height': this.formStyles.controls['height']?.value ?? "",
-        'width' : this.formStyles.controls['width']?.value ?? "",
-        'placeholder' : this.formStyles.controls['placeholder']?.value ?? "",
-        'required' : this.formStyles.controls['required'].value === "required" ? true : false,
-        'border-style' : this.formStyles.controls['border-style']?.value ?? "",
-        'border-color' : this.formStyles.controls['border-color']?.value ?? "#C0C0C0",
-        'border-width' : this.formStyles.controls['border-width']?.value ?? "",
-        'font-size' : this.formStyles.controls['font-size']?.value ?? "",
-        'font-weight' : this.formStyles.controls['font-weight']?.value ?? "",
-        'color' : this.formStyles.controls['color']?.value ?? ""
-      }
+      styles: this.formStyles.value
     }))
   }
 }

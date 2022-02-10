@@ -6,14 +6,16 @@ import { FormsBuilderModule } from './form-builder/form-builder.module'
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { NotFountPageComponent } from './not-fount-page/not-fount-page.component';
 
 const appRoutes: Routes =[
-  { path: '**', redirectTo: '/'}
+  { path: '**', component: NotFountPageComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    NotFountPageComponent,
   ],
   exports: [],
   imports: [

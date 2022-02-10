@@ -1,6 +1,11 @@
 body {
     margin: 0;
-    padding-bottom: 20px;
+    .mat-dialog-container {
+        position: absolute;
+        padding: 0;
+        top: 0;
+        left: 0;
+    }
 }
 
 .silver-border {

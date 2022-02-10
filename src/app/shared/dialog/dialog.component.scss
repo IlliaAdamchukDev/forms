@@ -1,0 +1,30 @@
+.pop-up{
+    min-height: 60px;
+    background-color: orangered;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    button {
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        min-height: 30px;
+        min-width: 70px;
+        outline: none;
+        border: transparent;
+        background-color: orangered;
+        color: white;
+        transition: 0.8s;
+        &:hover {
+            cursor: pointer;
+            transition: 0.8s;
+            background-color: white;
+            color: black;
+            border: solid orangered 1px;
+        }
+    }  
+}
