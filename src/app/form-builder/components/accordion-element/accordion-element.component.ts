@@ -3,7 +3,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
-import { changeFormStylesAction, changeStylesAction } from '../../reducers/field/field.actions';
+import {
+  changeFormStylesAction,
+  changeStylesAction,
+} from '../../reducers/field/field.actions';
 import { FieldsState, FieldStyles } from '../../reducers/field/field.reducer';
 import { selectFields } from '../../reducers/field/field.selectors';
 
@@ -12,28 +15,33 @@ import { selectFields } from '../../reducers/field/field.selectors';
   templateUrl: './accordion-element.component.html',
   styleUrls: ['./accordion-element.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [AccordionDataService]
+  providers: [AccordionDataService],
 })
 export class AccordionElementComponent {
-  fields$ : Observable<[{id:number, styles:FieldStyles, type : string}]> = this.store$.pipe(select(selectFields));
+  fields$: Observable<[{ id: number; styles: FieldStyles; type: string }]> =
+    this.store$.pipe(select(selectFields));
   notifier = new Subject();
-  constructor(private store$: Store<FieldsState>, private data: AccordionDataService) {
-    this.fields$.pipe(takeUntil(this.notifier)).subscribe((newFields)=>{
+  constructor(
+    private store$: Store<FieldsState>,
+    private data: AccordionDataService
+  ) {
+    this.fields$.pipe(takeUntil(this.notifier)).subscribe((newFields) => {
       if (this.formStyles.value !== newFields[0].styles) {
         this.formStyles.setValue(newFields[0].styles);
       }
     });
-    this.data.fieldStyles$.pipe(takeUntil(this.notifier))
-    .subscribe(styles => {
-      this.fieldStyles.setValue(styles)
-    })
+    this.data.fieldStyles$
+      .pipe(takeUntil(this.notifier))
+      .subscribe((styles) => {
+        this.fieldStyles.setValue(styles);
+      });
   }
 
-  @Input() 
-  title : string = "";
+  @Input()
+  title: string = '';
 
   @Input()
-  fieldName : string = ""; 
+  fieldName: string = '';
 
   ngOnDestroy() {
     this.notifier.next(false);
@@ -41,41 +49,45 @@ export class AccordionElementComponent {
   }
 
   panelOpenState = false;
-  fieldStyles : FormGroup = new FormGroup({
-    'height' : new FormControl(),
-    'width' : new FormControl(),
-    'placeholder' : new FormControl(),
-    'required' : new FormControl(),
-    'border-style' : new FormControl(),
-    'border-color' : new FormControl(),
-    'border-width' : new FormControl(),
-    'font-size' : new FormControl(),
-    'font-weight' : new FormControl(),
-    'color' : new FormControl()
-  })
+  fieldStyles: FormGroup = new FormGroup({
+    height: new FormControl(),
+    width: new FormControl(),
+    placeholder: new FormControl(),
+    required: new FormControl(),
+    'border-style': new FormControl(),
+    'border-color': new FormControl(),
+    'border-width': new FormControl(),
+    'font-size': new FormControl(),
+    'font-weight': new FormControl(),
+    color: new FormControl(),
+  });
 
-  formStyles : FormGroup = new FormGroup({
-    'height' : new FormControl(),
-    'width' : new FormControl(),
-    'placeholder' : new FormControl(),
-    'required' : new FormControl(),
-    'border-style' : new FormControl(),
-    'border-color' : new FormControl(),
-    'border-width' : new FormControl(),
-    'font-size' : new FormControl(),
-    'font-weight' : new FormControl(),
-    'color' : new FormControl()
-  })
+  formStyles: FormGroup = new FormGroup({
+    height: new FormControl(),
+    width: new FormControl(),
+    placeholder: new FormControl(),
+    required: new FormControl(),
+    'border-style': new FormControl(),
+    'border-color': new FormControl(),
+    'border-width': new FormControl(),
+    'font-size': new FormControl(),
+    'font-weight': new FormControl(),
+    color: new FormControl(),
+  });
 
-  sendStyles () {
-    this.store$.dispatch(new changeStylesAction({
-      styles: this.fieldStyles.value
-    }))
+  sendStyles() {
+    this.store$.dispatch(
+      new changeStylesAction({
+        styles: this.fieldStyles.value,
+      })
+    );
   }
 
-  sendFormStyles () {
-    this.store$.dispatch(new changeFormStylesAction({
-      styles: this.formStyles.value
-    }))
+  sendFormStyles() {
+    this.store$.dispatch(
+      new changeFormStylesAction({
+        styles: this.formStyles.value,
+      })
+    );
   }
 }

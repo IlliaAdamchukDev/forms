@@ -1,104 +1,104 @@
 $standart-color: #717171;
 
 .element {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    width: 95%;
-    margin: 2% auto;
-    min-height: 50px;
-    input {
-        height: 100%;
-        width: 100%;
-        border: solid 1px $standart-color;
-        &:hover {
-            cursor: grab;
-        }
-    
-        &:active {
-            cursor: grabbing;
-        }
-    }
-    textarea {
-        resize: none;
-        height: 100%;
-        width: 100%;
-        border: solid 1px $standart-color;
-        &:hover {
-            cursor: grab;
-        }
-    
-        &:active {
-            cursor: grabbing;
-        }
-    }
-    button {
-        height: 100%;
-        width: 80%;
-        border: solid 1px $standart-color;
-        &:hover {
-            cursor: grab;
-        }
-    
-        &:active {
-            cursor: grabbing;
-        }
-    }
-    .checkbox {
-        margin: 0;
-        height: 100%;
-        label {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            input {
-                width: 20px;
-                height: 20px;
-                border: solid 1px $standart-color;
-            }
-            &:hover {
-                cursor: grab;
-            }
-        
-            &:active {
-                cursor: grabbing;
-            }
-        }
-        &:hover {
-            cursor: grab;
-        }
-    
-        &:active {
-            cursor: grabbing;
-        }
-    }
-    select {
-        width: 100%;
-        height: 100%;
-        border: solid 1px $standart-color;
-        &:hover {
-            cursor: grab;
-        }
-    
-        &:active {
-            cursor: grabbing;
-        }
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 95%;
+  margin: 2% auto;
+  min-height: 50px;
+  input {
+    height: 100%;
+    width: 100%;
+    border: solid 1px $standart-color;
     &:hover {
-        cursor: grab;
+      cursor: grab;
     }
 
     &:active {
-        cursor: grabbing;
+      cursor: grabbing;
     }
+  }
+  textarea {
+    resize: none;
+    height: 100%;
+    width: 100%;
+    border: solid 1px $standart-color;
+    &:hover {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  button {
+    height: 100%;
+    width: 80%;
+    border: solid 1px $standart-color;
+    &:hover {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  .checkbox {
+    margin: 0;
+    height: 100%;
+    label {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      input {
+        width: 20px;
+        height: 20px;
+        border: solid 1px $standart-color;
+      }
+      &:hover {
+        cursor: grab;
+      }
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+    &:hover {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  select {
+    width: 100%;
+    height: 100%;
+    border: solid 1px $standart-color;
+    &:hover {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
 }
 
 .required {
-    &::after {
-        content: '*';
-        font-size: 24px;
-        color: red;
-    }
+  &::after {
+    content: "*";
+    font-size: 24px;
+    color: red;
+  }
 }

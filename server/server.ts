@@ -24,70 +24,69 @@ yzqH1/2HzsZkAsLwsK/kAouj9ZX2gp186UwL4W+rKCUZA8Ju1c6Vc/WpAkEAkrfP
 a7dHtG5Y2hYXKGM70Xe0jp+chG6aqaRcPssDRA3SFxfhf9xGl+7zj7uWW2ho90S8
 CbBxXsVBd9s7/3sxnwJAN++DNT5c21dU/zFbvxJ8nyfwdom27kYhU91MmDA7GBMq
 8NmKS8obYvc9TQWWsTm9l6h48Y7rEGh52Es1x8SfbA==
------END RSA PRIVATE KEY-----`//process.env['PRIVATE_KEY'];
+-----END RSA PRIVATE KEY-----`; //process.env['PRIVATE_KEY'];
 const RSA_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHsGeQMDvrqGMMdTidh55hCGhKCK
 CwbIcjHuiw4pCzzwXxt+VioZgyq5OpK64nIxi5106pRzWVlI55vQ5vP45rjnKYb3
 HnYVkIsLI1t0lUBB8UyDazyzU09fgpfDWa+KO7EZlFF4Rii373PNGAXMh81XOmkE
 FpQ04Tm8IXt1hTbTAgMBAAE=
------END PUBLIC KEY-----`//process.env['PUBLIC_KEY'];
+-----END PUBLIC KEY-----`; //process.env['PUBLIC_KEY'];
 
 let users = [
-    {
-        userId : -1,
-        entered : Date.now()
+  {
+    userId: -1,
+    entered: Date.now(),
+  },
+];
+
+server.post('/login', (req: any, res: any) => {
+  let user = db.data.find(
+    (el: { email: string; password: string; id: string }) =>
+      el.email === req.body.email
+  );
+  if (!user || !(user.password === req.body.password)) {
+    return res.status(401).json({ message: 'User not found' });
+  }
+
+  let userIndex = users.findIndex((el: any) => el.userId === user.id);
+  if (userIndex >= 0) {
+    if (Date.now() - users[userIndex].entered <= 10000) {
+      return res.status(429).json({ message: 'Too many requests' });
     }
-]
+    users.splice(userIndex, 1);
+  }
+  users.push({
+    userId: user.id,
+    entered: Date.now(),
+  });
 
-server.post('/login',(req : any,res : any)=>{
-    let user = db.data.find((el : {email : string, password:string, id:string}) => el.email===req.body.email);
-    if (!user || !(user.password === req.body.password)) {
-        return res.status(401).json({ message: 'User not found' })
-    }
+  const payload = {
+    sub: user.id,
+    iat: Date.now(),
+    exp: Date.now() + 9000000,
+  };
 
-    let userIndex = users.findIndex((el:any) => el.userId === user.id);
-    if (userIndex>=0) {
-        if (Date.now() - users[userIndex].entered <= 10000) {
-            return res.status(429).json({message: 'Too many requests'})
-        } 
-        users.splice(userIndex,1);
-    }
-    users.push(
-        {
-            userId : user.id,
-            entered : Date.now()
-        }
-    )
+  const jwtBearerToken = jwt.sign(payload, RSA_PRIVATE_KEY, {
+    algorithm: 'RS256',
+  });
 
-    const payload = {
-        "sub" : user.id,
-        "iat" : Date.now(),
-        "exp" : Date.now() + 9000000
-    }
-
-    const jwtBearerToken = jwt.sign(payload, RSA_PRIVATE_KEY, {
-        algorithm: 'RS256',
-    })
-       
-    
-    return res.status(200).json({
-        expires: payload.exp,
-        token: jwtBearerToken,
-    })
-})
-
-server.get('/forms', (req:any, res:any) => {
-    try {
-        if(jwt.verify(req.headers.authorization.substring(7),RSA_PUBLIC_KEY)) {
-            return res.status(200).json({ message: "Valid" })
-        }
-        return res.status(401).json({ message: "Invalid" })
-    } catch (error) {
-        return res.status(401).json({ message: "Invalid" })
-    }
-})
-
-server.listen(3000, () => {
-    console.log('JSON Server is running');
+  return res.status(200).json({
+    expires: payload.exp,
+    token: jwtBearerToken,
+  });
 });
 
+server.get('/forms', (req: any, res: any) => {
+  try {
+    if (jwt.verify(req.headers.authorization.substring(7), RSA_PUBLIC_KEY)) {
+      return res.status(200).json({ message: 'Valid' });
+    }
+    return res.status(401).json({ message: 'Invalid' });
+  } catch (error) {
+    return res.status(401).json({ message: 'Invalid' });
+  }
+});
+
+server.listen(3000, () => {
+  console.log('JSON Server is running');
+});

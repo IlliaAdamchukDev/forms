@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +17,7 @@ import { FormsGuard } from './guards/forms.guard';
 import { metaReducers, reducers } from './reducers';
 import { environment } from '../../environments/environment';
 
-const formRoutes: Routes =[
+const formRoutes: Routes = [
   { path: 'forms', component: FormBuilderComponent, canActivate: [FormsGuard] },
 ];
 
@@ -30,21 +30,24 @@ const formRoutes: Routes =[
   imports: [
     CommonModule,
     FormsModule,
-    DragDropModule, 
+    DragDropModule,
     ReactiveFormsModule,
     MatExpansionModule,
     BrowserAnimationsModule,
     SharedModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     EffectsModule.forRoot(),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
-    RouterModule.forChild(formRoutes)
-  ]
+    RouterModule.forChild(formRoutes),
+  ],
 })
-export class FormsBuilderModule { }
+export class FormsBuilderModule {}

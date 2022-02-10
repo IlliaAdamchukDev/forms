@@ -1,14 +1,29 @@
 <div class="form-centring">
-    <form [formGroup] = "auth" class="login">
-        <label>LOGIN</label>
-        <app-custom-input [inputType]="'email'" [inputTitle] = "'Enter your email:'" formControlName = "email"></app-custom-input>
-        <app-custom-input [inputType]="'password'" [inputTitle] = "'Enter your password:'" formControlName = "password"></app-custom-input>
-        <button *ngIf= "isButton.button; else loaderGIF" [disabled] = "isButton.disabled" (click)="login()" class="hover-scale">Login</button>
-    </form>
+  <form [formGroup]="auth" class="login">
+    <label>LOGIN</label>
+    <app-custom-input
+      [inputType]="'email'"
+      [inputTitle]="'Enter your email:'"
+      formControlName="email"
+    ></app-custom-input>
+    <app-custom-input
+      [inputType]="'password'"
+      [inputTitle]="'Enter your password:'"
+      formControlName="password"
+    ></app-custom-input>
+    <button
+      *ngIf="isButton.button; else loaderGIF"
+      [disabled]="isButton.disabled"
+      (click)="login()"
+      class="hover-scale"
+    >
+      Login
+    </button>
+  </form>
 </div>
 
 <ng-template #loaderGIF>
-    <div class="loader">
-        <img src="../../../assets/loader.gif" alt="loader">
-    </div>
+  <div class="loader">
+    <img src="../../../assets/loader.gif" alt="loader" />
+  </div>
 </ng-template>

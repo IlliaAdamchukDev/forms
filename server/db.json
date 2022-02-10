@@ -1,14 +1,14 @@
 {
-   "data" : [
-        {
-            "email" : "t@gmail.com",
-            "password" : "123",
-            "id" : 0
-        },
-        {
-            "email" : "t",
-            "password" : "1",
-            "id" : 1
-        }
-    ]
+  "data": [
+    {
+      "email": "t@gmail.com",
+      "password": "123",
+      "id": 0
+    },
+    {
+      "email": "t",
+      "password": "1",
+      "id": 1
+    }
+  ]
 }

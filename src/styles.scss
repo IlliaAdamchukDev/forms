@@ -1,22 +1,22 @@
 body {
-    margin: 0;
-    .mat-dialog-container {
-        position: absolute;
-        padding: 0;
-        top: 0;
-        left: 0;
-    }
+  margin: 0;
+  .mat-dialog-container {
+    position: absolute;
+    padding: 0;
+    top: 0;
+    left: 0;
+  }
 }
 
 .silver-border {
-    border: solid silver 1px;
+  border: solid silver 1px;
 }
 
 .hover-scale {
+  transition: 1s;
+  &:hover {
+    cursor: pointer;
     transition: 1s;
-    &:hover {
-        cursor: pointer;
-        transition: 1s;
-        transform: scale(1.1);
-    }
+    transform: scale(1.1);
+  }
 }
