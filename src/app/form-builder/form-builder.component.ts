@@ -17,6 +17,7 @@ import {
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
 import { startStyles } from '../shared/constants/constants';
+import { Unsubscriber } from '../shared/Unsubscriber/Unsubscriber';
 
 @Component({
   selector: 'app-form-builder',
@@ -24,7 +25,7 @@ import { startStyles } from '../shared/constants/constants';
   styleUrls: ['./form-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormBuilderComponent {
+export class FormBuilderComponent extends Unsubscriber {
   fieldName = '';
   type$ = this.store$.pipe(select(selectType));
   fields$ = this.store$.pipe(select(selectFields));
@@ -38,9 +39,10 @@ export class FormBuilderComponent {
   });
   group!: FormGroup;
 
-  notifier = new Subject();
+  override notifier = new Subject();
   values!: { [key: string | number]: string };
   constructor(private store$: Store<FieldsState>, private auth: AuthService) {
+    super();
     this.type$.pipe(takeUntil(this.notifier)).subscribe((type) => {
       this.fieldName = type;
     });
@@ -63,11 +65,6 @@ export class FormBuilderComponent {
       this.group = new FormGroup(newGroup);
       this.group.patchValue(this.values);
     });
-  }
-
-  ngOnDestroy() {
-    this.notifier.next(false);
-    this.notifier.complete();
   }
 
   fields = [
@@ -127,6 +124,8 @@ export class FormBuilderComponent {
       })
     );
   }
+
+  noDestroy = true;
 
   logout() {
     this.auth.logout();

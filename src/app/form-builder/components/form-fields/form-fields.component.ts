@@ -6,6 +6,7 @@ import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
+import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
 
 @Component({
   selector: 'app-form-fields',
@@ -13,12 +14,13 @@ import { DialogComponent } from '../../../shared/dialog/dialog.component';
   styleUrls: ['./form-fields.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldsComponent {
+export class FormFieldsComponent extends Unsubscriber {
   fields$ = this.store$.pipe(select(selectFields));
-  notifier = new Subject();
+  override notifier = new Subject();
   styles!: FieldStyles;
 
   constructor(private store$: Store, private dialog: MatDialog) {
+    super();
     this.fields$.pipe(takeUntil(this.notifier)).subscribe((fields) => {
       let el = fields.find(
         (field: { id: number; styles: FieldStyles }) => field.id === this.key
@@ -48,11 +50,6 @@ export class FormFieldsComponent {
 
   @Input()
   form!: FormGroup;
-
-  ngOnDestroy() {
-    this.notifier.next(false);
-    this.notifier.complete();
-  }
 
   changeType(event: any) {
     switch (this.field) {

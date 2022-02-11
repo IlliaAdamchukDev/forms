@@ -1,23 +1,36 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
-  notifier = new Subject();
+export class LoginComponent extends Unsubscriber {
+  override notifier = new Subject();
   isButton = { button: true, disabled: false };
-  constructor(private authService: AuthService, private dialog: MatDialog) {
+
+  constructor(
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {
+    super();
     this.authService.isButton$
       .pipe(takeUntil(this.notifier))
       .subscribe((val) => {
         this.isButton = val;
+        cdr.detectChanges();
         if (this.isButton.disabled) {
           this.auth.controls['email'].disable();
           this.auth.controls['password'].disable();
@@ -41,16 +54,10 @@ export class LoginComponent {
       });
       return;
     }
-    this.dialog
-      .open(DialogComponent, {
-        data: {
-          message: 'Invalid data',
-        },
-      })
-  }
-
-  ngOnDestroy() {
-    this.notifier.next(false);
-    this.notifier.complete();
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: 'Invalid data',
+      },
+    });
   }
 }

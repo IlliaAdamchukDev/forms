@@ -11,6 +11,7 @@ import { FieldsState } from '../../reducers/field/field.reducer';
 import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './accordion-element-functions';
+import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
 
 @Component({
   selector: 'app-accordion-element',
@@ -19,14 +20,14 @@ import { createFormGroup } from './accordion-element-functions';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [AccordionDataService],
 })
-export class AccordionElementComponent {
-  fields$: Observable<[{ id: number; styles: FieldStyles; type: string }]> =
-    this.store$.pipe(select(selectFields));
-  notifier = new Subject();
+export class AccordionElementComponent extends Unsubscriber {
+  override notifier = new Subject();
+
   constructor(
     private store$: Store<FieldsState>,
     private data: AccordionDataService
   ) {
+    super();
     this.fields$.pipe(takeUntil(this.notifier)).subscribe((newFields) => {
       if (this.formStyles.value !== newFields[0].styles) {
         this.formStyles.setValue(newFields[0].styles);
@@ -39,36 +40,36 @@ export class AccordionElementComponent {
       });
   }
 
+  fields$: Observable<[{ id: number; styles: FieldStyles; type: string }]> =
+    this.store$.pipe(select(selectFields));
+
   @Input()
   title: string = '';
 
   @Input()
   fieldName: string = '';
 
-  ngOnDestroy() {
-    this.notifier.next(false);
-    this.notifier.complete();
-  }
   panelOpenState = false;
-  
+
   fieldStyles: FormGroup = createFormGroup();
   formStyles: FormGroup = createFormGroup();
 
-  standartFields = ['height','width','border-width','border-color']
+  standartFields = ['height', 'width', 'border-width', 'border-color'];
 
   accordionFields = {
-    'input' : ['placeholder', 'font-size', 'color', 'required']
-  }
+    input: ['placeholder', 'font-size', 'color', 'required'],
+  };
 
   sendStyles() {
-    this.store$.dispatch(
-      new changeStylesAction({
-        styles: this.fieldStyles.value,
-      })
-    );
-  }
+    if (this.fieldName !== 'form') {
+      this.store$.dispatch(
+        new changeStylesAction({
+          styles: this.fieldStyles.value,
+        })
+      );
+      return;
+    }
 
-  sendFormStyles() {
     this.store$.dispatch(
       new changeFormStylesAction({
         styles: this.formStyles.value,

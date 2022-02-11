@@ -6,6 +6,7 @@ import {
   ElementRef,
   Renderer2,
   HostListener,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -35,6 +36,7 @@ import {
     <span>{{ inputTitle }}</span>
     <input type="{{ inputType }}" #element />
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomInputComponent implements ControlValueAccessor, Validator {
   @Input() inputTitle!: string;
@@ -54,11 +56,11 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
 
   validate(control: AbstractControl): ValidationErrors | null {
     const regexp =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let result = true;
     if (this.inputType === 'email') {
       result = regexp.test(control.value);
-    } 
+    }
     return control.value?.length && result ? null : { valid: false };
   }
 

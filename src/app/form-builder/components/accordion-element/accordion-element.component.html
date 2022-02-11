@@ -45,7 +45,7 @@
       <label>Choose border color: </label>
       <input type="color" formControlName="border-color" />
     </div>
-    
+
     <div class="border-style" *ngIf="fieldName.length">
       <label>Choose border style: </label>
       <select formControlName="border-style">
@@ -69,17 +69,7 @@
       </select>
     </div>
     <div class="add" *ngIf="fieldName.length">
-      <button
-        *ngIf="title === 'Element'; else formButton"
-        (click)="sendStyles()"
-      >
-        Change styles
-      </button>
-      <ng-template #formButton>
-        <button (click)="sendFormStyles()" class="hover-scale">
-          Change styles
-        </button>
-      </ng-template>
+      <button (click)="sendStyles()">Change styles</button>
     </div>
   </form>
 </mat-expansion-panel>

@@ -7,11 +7,12 @@ import {
   selectCheckedId,
   selectFields,
 } from '../../reducers/field/field.selectors';
+import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AccordionDataService {
+export class AccordionDataService extends Unsubscriber {
   fields!: [{ id: number; styles: FieldStyles; type: string }];
   id!: number;
   fieldStyles$ = new Subject<FieldStyles>();
@@ -20,8 +21,9 @@ export class AccordionDataService {
   fields$: Observable<[{ id: number; styles: FieldStyles; type: string }]> =
     this.store$.pipe(select(selectFields));
 
-  notifier = new Subject();
+  override notifier = new Subject();
   constructor(private store$: Store<FieldsState>) {
+    super();
     this.fields$
       .pipe(takeUntil(this.notifier))
       .subscribe((newFields) => (this.fields = newFields));
@@ -44,10 +46,5 @@ export class AccordionDataService {
         }
       );
     });
-  }
-
-  ngOnDestroy() {
-    this.notifier.next(false);
-    this.notifier.complete();
   }
 }
