@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { FieldStyles } from './field.reducer';
+import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 
 export enum fieldActionsType {
   inputClick = '[FIELD] input clicked',

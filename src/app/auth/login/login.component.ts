@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class LoginComponent {
   notifier = new Subject();
   isButton = { button: true, disabled: false };
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private dialog: MatDialog) {
     this.authService.isButton$
       .pipe(takeUntil(this.notifier))
       .subscribe((val) => {
@@ -32,10 +34,19 @@ export class LoginComponent {
   });
 
   login(): void {
-    this.authService.login({
-      email: this.auth.controls['email'].value,
-      password: this.auth.controls['password'].value,
-    });
+    if (this.auth.valid) {
+      this.authService.login({
+        email: this.auth.controls['email'].value,
+        password: this.auth.controls['password'].value,
+      });
+      return;
+    }
+    this.dialog
+      .open(DialogComponent, {
+        data: {
+          message: 'Invalid data',
+        },
+      })
   }
 
   ngOnDestroy() {

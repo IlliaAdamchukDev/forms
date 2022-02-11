@@ -41,6 +41,11 @@
       <label>Enter border width: </label>
       <input type="text" formControlName="border-width" />
     </div>
+    <div class="border-color" *ngIf="fieldName.length">
+      <label>Choose border color: </label>
+      <input type="color" formControlName="border-color" />
+    </div>
+    
     <div class="border-style" *ngIf="fieldName.length">
       <label>Choose border style: </label>
       <select formControlName="border-style">
@@ -52,10 +57,6 @@
         <option>hidden</option>
         <option>dotted</option>
       </select>
-    </div>
-    <div class="border-color" *ngIf="fieldName.length">
-      <label>Choose border color: </label>
-      <input type="color" formControlName="border-color" />
     </div>
     <div
       class="required"

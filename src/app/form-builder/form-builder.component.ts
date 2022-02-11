@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { select, Store } from '@ngrx/store';
-import { FieldsState, FieldStyles } from './reducers/field/field.reducer';
+import { FieldsState } from './reducers/field/field.reducer';
+import { FieldStyles } from '../shared/interfaces/interfaces';
 import { Subject, takeUntil } from 'rxjs';
 import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
@@ -15,6 +16,7 @@ import {
 } from './reducers/field/field.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
+import { startStyles } from '../shared/constants/constants';
 
 @Component({
   selector: 'app-form-builder',
@@ -120,18 +122,7 @@ export class FormBuilderComponent {
     this.store$.dispatch(
       new addFieldAction({
         id: this.form[event.currentIndex].key,
-        styles: {
-          height: '',
-          width: '',
-          placeholder: '',
-          required: false,
-          'border-style': '',
-          'border-color': '',
-          'border-width': '',
-          'font-size': '',
-          'font-weight': '',
-          color: '',
-        },
+        styles: JSON.parse(JSON.stringify(startStyles)),
         type: this.fields[event.previousIndex].fieldName,
       })
     );

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
@@ -7,8 +7,10 @@ import {
   changeFormStylesAction,
   changeStylesAction,
 } from '../../reducers/field/field.actions';
-import { FieldsState, FieldStyles } from '../../reducers/field/field.reducer';
+import { FieldsState } from '../../reducers/field/field.reducer';
+import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
+import { createFormGroup } from './accordion-element-functions';
 
 @Component({
   selector: 'app-accordion-element',
@@ -47,33 +49,16 @@ export class AccordionElementComponent {
     this.notifier.next(false);
     this.notifier.complete();
   }
-
   panelOpenState = false;
-  fieldStyles: FormGroup = new FormGroup({
-    height: new FormControl(),
-    width: new FormControl(),
-    placeholder: new FormControl(),
-    required: new FormControl(),
-    'border-style': new FormControl(),
-    'border-color': new FormControl(),
-    'border-width': new FormControl(),
-    'font-size': new FormControl(),
-    'font-weight': new FormControl(),
-    color: new FormControl(),
-  });
+  
+  fieldStyles: FormGroup = createFormGroup();
+  formStyles: FormGroup = createFormGroup();
 
-  formStyles: FormGroup = new FormGroup({
-    height: new FormControl(),
-    width: new FormControl(),
-    placeholder: new FormControl(),
-    required: new FormControl(),
-    'border-style': new FormControl(),
-    'border-color': new FormControl(),
-    'border-width': new FormControl(),
-    'font-size': new FormControl(),
-    'font-weight': new FormControl(),
-    color: new FormControl(),
-  });
+  standartFields = ['height','width','border-width','border-color']
+
+  accordionFields = {
+    'input' : ['placeholder', 'font-size', 'color', 'required']
+  }
 
   sendStyles() {
     this.store$.dispatch(

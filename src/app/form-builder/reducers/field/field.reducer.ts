@@ -1,19 +1,8 @@
+import { startStyles } from 'src/app/shared/constants/constants';
+import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 import { FieldActions, fieldActionsType } from './field.actions';
 
 export const fieldNode = 'field';
-
-export interface FieldStyles {
-  height: string;
-  width: string;
-  placeholder: string;
-  required: boolean;
-  'border-style': string;
-  'border-color': string;
-  'border-width': string;
-  'font-size': string;
-  'font-weight': string;
-  color: string;
-}
 
 export interface FieldsState {
   fields: [
@@ -31,18 +20,7 @@ export const initialState: FieldsState = {
   fields: [
     {
       id: -1,
-      styles: {
-        height: '',
-        width: '',
-        placeholder: '',
-        required: false,
-        'border-style': '',
-        'border-color': '',
-        'border-width': '',
-        'font-size': '',
-        'font-weight': '',
-        color: '',
-      },
+      styles: JSON.parse(JSON.stringify(startStyles)),
       type: 'form',
     },
   ],

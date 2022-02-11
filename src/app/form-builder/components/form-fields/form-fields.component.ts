@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { FieldStyles } from '../../reducers/field/field.reducer';
+import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';

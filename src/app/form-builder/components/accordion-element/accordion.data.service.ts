@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { FieldsState, FieldStyles } from '../../reducers/field/field.reducer';
+import { FieldsState } from '../../reducers/field/field.reducer';
+import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 import {
   selectCheckedId,
   selectFields,
