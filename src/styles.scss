@@ -13,10 +13,10 @@ body {
 }
 
 .hover-scale {
-  transition: 1s;
+  transition: 0.3s linear;
   &:hover {
     cursor: pointer;
-    transition: 1s;
+    transition: 0.5s ease;
     transform: scale(1.1);
   }
 }

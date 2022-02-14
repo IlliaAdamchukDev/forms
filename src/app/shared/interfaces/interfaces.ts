@@ -10,3 +10,9 @@ export interface FieldStyles {
   'font-weight': string;
   color: string;
 }
+
+export interface Field {
+  id: number;
+  styles: FieldStyles;
+  type: string;
+}
