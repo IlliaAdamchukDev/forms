@@ -16,9 +16,9 @@ import { changeCheckedAction } from '../../reducers/field/field.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldsComponent extends Unsubscriber {
-  fields$ = this.store$.pipe(select(selectFields));
+  public fields$ = this.store$.pipe(select(selectFields));
   override notifier = new Subject();
-  styles!: FieldStyles;
+  public styles!: FieldStyles;
 
   constructor(private store$: Store, private dialog: MatDialog) {
     super();
@@ -32,18 +32,18 @@ export class FormFieldsComponent extends Unsubscriber {
     });
   }
   @Input()
-  field: string = '';
+  public field: string = '';
 
   @Input()
-  isChangable: boolean = false;
+  public isChangable: boolean = false;
 
   @Input()
-  key!: number;
+  public key!: number;
 
   @Input()
-  form!: FormGroup;
+  public form!: FormGroup;
 
-  message() {
+  message():void {
     if (!this.isChangable) {
       return;
     }
@@ -68,7 +68,7 @@ export class FormFieldsComponent extends Unsubscriber {
     });
   }
 
-  changeCheckedId() {
+  changeCheckedId():void {
     this.store$.dispatch(new changeCheckedAction({ id: this.key }));
   }
 }

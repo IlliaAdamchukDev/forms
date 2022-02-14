@@ -53,7 +53,11 @@ server.post('/login', (req: any, res: any) => {
   let userIndex = users.findIndex((el: any) => el.userId === user.id);
   if (userIndex >= 0) {
     if (Date.now() - users[userIndex].entered <= 10000) {
-      return res.status(429).json({ message: 'Too many requests' });
+      return res.status(429).json({
+         message: 'Too many requests',
+         expires: '',
+         token: '',
+      });
     }
     users.splice(userIndex, 1);
   }

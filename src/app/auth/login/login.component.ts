@@ -17,8 +17,8 @@ import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends Unsubscriber {
-  override notifier = new Subject();
-  isButton = { button: true, disabled: false };
+  public override notifier = new Subject();
+  public isButton = { button: true, disabled: false };
 
   constructor(
     private authService: AuthService,
@@ -30,7 +30,7 @@ export class LoginComponent extends Unsubscriber {
       .pipe(takeUntil(this.notifier))
       .subscribe((val) => {
         this.isButton = val;
-        cdr.detectChanges();
+        this.cdr.detectChanges();
         if (this.isButton.disabled) {
           this.auth.controls['email'].disable();
           this.auth.controls['password'].disable();
@@ -41,7 +41,7 @@ export class LoginComponent extends Unsubscriber {
       });
   }
 
-  auth: FormGroup = new FormGroup({
+  public auth: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
   });

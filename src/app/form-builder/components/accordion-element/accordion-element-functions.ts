@@ -1,6 +1,6 @@
 import { FormGroup, FormControl } from '@angular/forms';
 
-export function createFormGroup() {
+export function createFormGroup(): FormGroup {
   return new FormGroup({
     height: new FormControl(),
     width: new FormControl(),

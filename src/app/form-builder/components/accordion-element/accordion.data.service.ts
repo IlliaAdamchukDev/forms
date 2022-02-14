@@ -8,19 +8,20 @@ import {
   selectFields,
 } from '../../reducers/field/field.selectors';
 import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
+import { startStyles } from 'src/app/shared/constants/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccordionDataService extends Unsubscriber {
-  fields!: Field[];
-  id!: number;
-  fieldStyles$ = new Subject<FieldStyles>();
+  public fields!: Field[];
+  public id!: number;
+  public fieldStyles$ = new Subject<FieldStyles>();
 
-  id$: Observable<number> = this.store$.pipe(select(selectCheckedId));
-  fields$: Observable<Field[]> = this.store$.pipe(select(selectFields));
+  public id$: Observable<number> = this.store$.pipe(select(selectCheckedId));
+  public fields$: Observable<Field[]> = this.store$.pipe(select(selectFields));
 
-  override notifier = new Subject();
+  public override notifier = new Subject();
   constructor(private store$: Store<FieldsState>) {
     super();
     this.fields$
@@ -31,18 +32,7 @@ export class AccordionDataService extends Unsubscriber {
 
       let el = this.fields.find((field) => field.id === id);
       this.fieldStyles$.next(
-        el?.styles ?? {
-          height: '',
-          width: '',
-          placeholder: '',
-          required: false,
-          'border-style': '',
-          'border-color': '#000',
-          'border-width': '',
-          'font-size': '',
-          'font-weight': '',
-          color: '',
-        }
+        el?.styles ?? JSON.parse(JSON.stringify(startStyles))
       );
     });
   }

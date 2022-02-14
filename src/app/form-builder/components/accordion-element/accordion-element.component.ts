@@ -21,7 +21,7 @@ import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
   providers: [AccordionDataService],
 })
 export class AccordionElementComponent extends Unsubscriber {
-  override notifier = new Subject();
+  public override notifier = new Subject();
 
   constructor(
     private store$: Store<FieldsState>,
@@ -43,23 +43,17 @@ export class AccordionElementComponent extends Unsubscriber {
   fields$: Observable<Field[]> = this.store$.pipe(select(selectFields));
 
   @Input()
-  title: string = '';
+  public title: string = '';
 
   @Input()
-  fieldName: string = '';
+  public fieldName: string = '';
 
-  panelOpenState = false;
+  public panelOpenState = false;
 
-  fieldStyles: FormGroup = createFormGroup();
-  formStyles: FormGroup = createFormGroup();
+  public fieldStyles: FormGroup = createFormGroup();
+  public formStyles: FormGroup = createFormGroup();
 
-  standartFields = ['height', 'width', 'border-width', 'border-color'];
-
-  accordionFields = {
-    input: ['placeholder', 'font-size', 'color', 'required'],
-  };
-
-  sendStyles() {
+  sendStyles():void {
     if (this.fieldName !== 'form') {
       this.store$.dispatch(
         new changeStylesAction({

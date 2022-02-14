@@ -21,21 +21,21 @@ import { Unsubscriber } from '../shared/Unsubscriber/Unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormBuilderComponent extends Unsubscriber {
-  fieldName = '';
-  type$ = this.store$.pipe(select(selectType));
-  fields$ = this.store$.pipe(select(selectFields));
-  styles!: FieldStyles;
+  public fieldName = '';
+  private type$ = this.store$.pipe(select(selectType));
+  private fields$ = this.store$.pipe(select(selectFields));
+  public styles!: FieldStyles;
 
-  upGroup = new FormGroup({
+  public upGroup = new FormGroup({
     0: new FormControl(),
     1: new FormControl(),
     3: new FormControl(),
     4: new FormControl(),
   });
-  group!: FormGroup;
+  public group!: FormGroup;
 
-  override notifier = new Subject();
-  values!: { [key: string | number]: string };
+  public override notifier = new Subject();
+  private values!: { [key: string | number]: string };
   constructor(private store$: Store<FieldsState>, private auth: AuthService) {
     super();
     this.type$.pipe(takeUntil(this.notifier)).subscribe((type) => {
@@ -62,17 +62,17 @@ export class FormBuilderComponent extends Unsubscriber {
     });
   }
 
-  fields = [
+  public fields = [
     { fieldName: 'input', key: 0 },
     { fieldName: 'textarea', key: 1 },
     { fieldName: 'button', key: 2 },
     { fieldName: 'checkbox', key: 3 },
     { fieldName: 'select', key: 4 },
   ];
-  index = 4;
-  form: { fieldName: string; key: number }[] = [];
+  private index = 4;
+  public form: { fieldName: string; key: number }[] = [];
 
-  drop(event: CdkDragDrop<{ fieldName: string; key: number }[]>) {
+  public drop(event: CdkDragDrop<{ fieldName: string; key: number }[]>):void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -104,7 +104,7 @@ export class FormBuilderComponent extends Unsubscriber {
 
   noDestroy = true;
 
-  logout() {
+  logout():void {
     this.auth.logout();
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { of, Subject, takeUntil, take } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { of, Subject, takeUntil, take, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,9 +15,9 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  notifier = new Subject();
+  public notifier = new Subject();
   private isButton = new Subject<{ button: boolean; disabled: boolean }>();
-  isButton$ = this.isButton.asObservable();
+  public isButton$ = this.isButton.asObservable();
 
   constructor(
     private httpClient: HttpClient,
@@ -25,7 +25,7 @@ export class AuthService {
     private dialog: MatDialog
   ) {}
 
-  login(user: User) {
+  public login(user: User): Subscription {
     this.isButton.next({ button: false, disabled: true });
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
@@ -49,7 +49,7 @@ export class AuthService {
           return of();
         })
       )
-      .subscribe((res) => {
+      .subscribe((res : {token?:string, expires?:string, message?:string}) => {
         this.isButton.next({ button: true, disabled: true });
         this.setSession(res);
         this.dialog
@@ -67,28 +67,28 @@ export class AuthService {
       });
   }
 
-  private setSession(authResult: any) {
-    localStorage.setItem('id_token', authResult.token);
-    localStorage.setItem('expires_at', authResult.expires);
+  private setSession(authResult: {token?:string, expires?:string, message?:string}) {
+    localStorage.setItem('id_token', authResult?.token ?? "");
+    localStorage.setItem('expires_at', authResult?.expires ?? "");
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.router.navigate(['/']);
   }
 
-  public isLoggedIn() {
-    return this.getExpiration() > Date.now();
+  public isLoggedIn():boolean {
+    return +this.getExpiration() > Date.now();
   }
 
-  getExpiration() {
+  public getExpiration():string {
     const expiration = localStorage.getItem('expires_at');
-    const expiresAt = expiration ? expiration : 0;
+    const expiresAt = expiration?.length ? expiration : "0";
     return expiresAt;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy():void {
     this.notifier.next(false);
     this.notifier.complete();
   }

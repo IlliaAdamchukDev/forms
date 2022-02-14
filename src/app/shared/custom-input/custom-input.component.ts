@@ -39,22 +39,22 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomInputComponent implements ControlValueAccessor, Validator {
-  @Input() inputTitle!: string;
-  @Input() inputType!: string;
+  @Input() public inputTitle!: string;
+  @Input() public inputType!: string;
   @ViewChild('element', { static: true, read: ElementRef })
-  elementRef!: ElementRef;
+  private elementRef!: ElementRef;
 
   constructor(private renderer: Renderer2) {}
 
   @HostListener('input', ['$event.target.value'])
-  onInput = (value: any) => {
+  private onInput = (value: string):void => {
     this.value = value;
   };
 
-  onTouch: any = () => {};
-  val = '';
+  private onTouch = (val:string):void => {};
+  private val = '';
 
-  validate(control: AbstractControl): ValidationErrors | null {
+  public validate(control: AbstractControl): ValidationErrors | null {
     const regexp =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let result = true;
@@ -66,7 +66,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
 
   ngOnInit() {} // to change start value this.value = "newValue";
 
-  set value(val: string) {
+  public set value(val: string) {
     if (val !== undefined && this.val !== val) {
       this.val = val;
       this.onInput(val);
@@ -74,7 +74,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     }
   }
 
-  writeValue() {
+  public writeValue() {
     this.renderer.setAttribute(
       this.elementRef.nativeElement,
       'value',
@@ -83,14 +83,14 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     this.onInput(this.val);
   }
 
-  registerOnChange(fn: (_: any) => void): void {
+  public registerOnChange(fn: (_: any) => void): void {
     this.onInput = (value: string) => {
       this.value = value;
       fn(value);
     };
   }
 
-  registerOnTouched(fn: any) {
+  public registerOnTouched(fn: any):void {
     this.onTouch = fn;
   }
 }
