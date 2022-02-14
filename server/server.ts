@@ -54,9 +54,9 @@ server.post('/login', (req: any, res: any) => {
   if (userIndex >= 0) {
     if (Date.now() - users[userIndex].entered <= 10000) {
       return res.status(429).json({
-         message: 'Too many requests',
-         expires: '',
-         token: '',
+        message: 'Too many requests',
+        expires: '',
+        token: '',
       });
     }
     users.splice(userIndex, 1);

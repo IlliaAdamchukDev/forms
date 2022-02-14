@@ -72,7 +72,7 @@ export class FormBuilderComponent extends Unsubscriber {
   private index = 4;
   public form: { fieldName: string; key: number }[] = [];
 
-  public drop(event: CdkDragDrop<{ fieldName: string; key: number }[]>):void {
+  public drop(event: CdkDragDrop<{ fieldName: string; key: number }[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -104,7 +104,7 @@ export class FormBuilderComponent extends Unsubscriber {
 
   noDestroy = true;
 
-  logout():void {
+  logout(): void {
     this.auth.logout();
   }
 }

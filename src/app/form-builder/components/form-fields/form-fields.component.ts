@@ -43,7 +43,7 @@ export class FormFieldsComponent extends Unsubscriber {
   @Input()
   public form!: FormGroup;
 
-  message():void {
+  message(): void {
     if (!this.isChangable) {
       return;
     }
@@ -68,7 +68,7 @@ export class FormFieldsComponent extends Unsubscriber {
     });
   }
 
-  changeCheckedId():void {
+  changeCheckedId(): void {
     this.store$.dispatch(new changeCheckedAction({ id: this.key }));
   }
 }

@@ -53,7 +53,7 @@ export class AccordionElementComponent extends Unsubscriber {
   public fieldStyles: FormGroup = createFormGroup();
   public formStyles: FormGroup = createFormGroup();
 
-  sendStyles():void {
+  sendStyles(): void {
     if (this.fieldName !== 'form') {
       this.store$.dispatch(
         new changeStylesAction({

@@ -49,27 +49,33 @@ export class AuthService {
           return of();
         })
       )
-      .subscribe((res : {token?:string, expires?:string, message?:string}) => {
-        this.isButton.next({ button: true, disabled: true });
-        this.setSession(res);
-        this.dialog
-          .open(DialogComponent, {
-            data: {
-              message: 'You have logged in!',
-            },
-          })
-          .afterClosed()
-          .pipe(take(1))
-          .subscribe(() => {
-            this.isButton.next({ button: true, disabled: false });
-          });
-        this.router.navigate(['/forms']);
-      });
+      .subscribe(
+        (res: { token?: string; expires?: string; message?: string }) => {
+          this.isButton.next({ button: true, disabled: true });
+          this.setSession(res);
+          this.dialog
+            .open(DialogComponent, {
+              data: {
+                message: 'You have logged in!',
+              },
+            })
+            .afterClosed()
+            .pipe(take(1))
+            .subscribe(() => {
+              this.isButton.next({ button: true, disabled: false });
+            });
+          this.router.navigate(['/forms']);
+        }
+      );
   }
 
-  private setSession(authResult: {token?:string, expires?:string, message?:string}) {
-    localStorage.setItem('id_token', authResult?.token ?? "");
-    localStorage.setItem('expires_at', authResult?.expires ?? "");
+  private setSession(authResult: {
+    token?: string;
+    expires?: string;
+    message?: string;
+  }) {
+    localStorage.setItem('id_token', authResult?.token ?? '');
+    localStorage.setItem('expires_at', authResult?.expires ?? '');
   }
 
   public logout() {
@@ -78,17 +84,17 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  public isLoggedIn():boolean {
+  public isLoggedIn(): boolean {
     return +this.getExpiration() > Date.now();
   }
 
-  public getExpiration():string {
+  public getExpiration(): string {
     const expiration = localStorage.getItem('expires_at');
-    const expiresAt = expiration?.length ? expiration : "0";
+    const expiresAt = expiration?.length ? expiration : '0';
     return expiresAt;
   }
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.notifier.next(false);
     this.notifier.complete();
   }

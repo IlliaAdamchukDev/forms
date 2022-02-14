@@ -47,11 +47,11 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   constructor(private renderer: Renderer2) {}
 
   @HostListener('input', ['$event.target.value'])
-  private onInput = (value: string):void => {
+  private onInput = (value: string): void => {
     this.value = value;
   };
 
-  private onTouch = (val:string):void => {};
+  private onTouch = (val: string): void => {};
   private val = '';
 
   public validate(control: AbstractControl): ValidationErrors | null {
@@ -90,7 +90,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     };
   }
 
-  public registerOnTouched(fn: any):void {
+  public registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }
 }
