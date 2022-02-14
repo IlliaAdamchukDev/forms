@@ -7,6 +7,7 @@ import { selectFields } from '../../reducers/field/field.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
+import { changeCheckedAction } from '../../reducers/field/field.actions';
 
 @Component({
   selector: 'app-form-fields',
@@ -37,39 +38,10 @@ export class FormFieldsComponent extends Unsubscriber {
   isChangable: boolean = false;
 
   @Input()
-  clicks = {
-    input: (id: { id: number }) => {},
-    textarea: (id: { id: number }) => {},
-    button: (id: { id: number }) => {},
-    checkbox: (id: { id: number }) => {},
-    select: (id: { id: number }) => {},
-  };
-
-  @Input()
   key!: number;
 
   @Input()
   form!: FormGroup;
-
-  changeType(event: any) {
-    switch (this.field) {
-      case 'input':
-        this.clicks['input']({ id: this.key });
-        break;
-      case 'textarea':
-        this.clicks['textarea']({ id: this.key });
-        break;
-      case 'button':
-        this.clicks['button']({ id: this.key });
-        break;
-      case 'select':
-        this.clicks['select']({ id: this.key });
-        break;
-      case 'checkbox':
-        this.clicks['checkbox']({ id: this.key });
-        break;
-    }
-  }
 
   message() {
     if (!this.isChangable) {
@@ -94,5 +66,9 @@ export class FormFieldsComponent extends Unsubscriber {
         message,
       },
     });
+  }
+
+  changeCheckedId() {
+    this.store$.dispatch(new changeCheckedAction({ id: this.key }));
   }
 }

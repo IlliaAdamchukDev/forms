@@ -1,17 +1,11 @@
 import { startStyles } from 'src/app/shared/constants/constants';
-import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, Field } from 'src/app/shared/interfaces/interfaces';
 import { FieldActions, fieldActionsType } from './field.actions';
 
 export const fieldNode = 'field';
 
 export interface FieldsState {
-  fields: [
-    {
-      id: number;
-      styles: FieldStyles;
-      type: string;
-    }
-  ];
+  fields: Field[];
   type: string;
   checkedId: number;
 }
@@ -30,34 +24,14 @@ export const initialState: FieldsState = {
 
 export const fieldReducer = (state = initialState, action: FieldActions) => {
   switch (action.type) {
-    case fieldActionsType.inputClick:
+    case fieldActionsType.changeType:
       return {
         ...state,
-        type: 'input',
-        checkedId: action.payload.id,
+        type: action.payload.type,
       };
-    case fieldActionsType.areaClick:
+    case fieldActionsType.changeChecked:
       return {
         ...state,
-        type: 'textarea',
-        checkedId: action.payload.id,
-      };
-    case fieldActionsType.buttonClick:
-      return {
-        ...state,
-        type: 'button',
-        checkedId: action.payload.id,
-      };
-    case fieldActionsType.checkboxClick:
-      return {
-        ...state,
-        type: 'checkbox',
-        checkedId: action.payload.id,
-      };
-    case fieldActionsType.selectClick:
-      return {
-        ...state,
-        type: 'select',
         checkedId: action.payload.id,
       };
     case fieldActionsType.addField:

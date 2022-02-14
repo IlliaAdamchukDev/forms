@@ -6,11 +6,6 @@ import { FieldStyles } from '../shared/interfaces/interfaces';
 import { Subject, takeUntil } from 'rxjs';
 import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
-  inputClickAction,
-  buttonClickAction,
-  areaClickAction,
-  checkboxClickAction,
-  selectClickAction,
   addFieldAction,
   deleteFieldAction,
 } from './reducers/field/field.actions';
@@ -45,6 +40,7 @@ export class FormBuilderComponent extends Unsubscriber {
     super();
     this.type$.pipe(takeUntil(this.notifier)).subscribe((type) => {
       this.fieldName = type;
+      console.log(type);
     });
     this.fields$.pipe(takeUntil(this.notifier)).subscribe((fields) => {
       if (this.styles !== fields[0]?.styles) {
@@ -76,24 +72,6 @@ export class FormBuilderComponent extends Unsubscriber {
   ];
   index = 4;
   form: { fieldName: string; key: number }[] = [];
-
-  clicks = {
-    input: (id: { id: number }) => {
-      this.store$.dispatch(new inputClickAction(id));
-    },
-    textarea: (id: { id: number }) => {
-      this.store$.dispatch(new areaClickAction(id));
-    },
-    button: (id: { id: number }) => {
-      this.store$.dispatch(new buttonClickAction(id));
-    },
-    checkbox: (id: { id: number }) => {
-      this.store$.dispatch(new checkboxClickAction(id));
-    },
-    select: (id: { id: number }) => {
-      this.store$.dispatch(new selectClickAction(id));
-    },
-  };
 
   drop(event: CdkDragDrop<{ fieldName: string; key: number }[]>) {
     if (event.previousContainer === event.container) {

@@ -16,6 +16,7 @@ import { AccordionElementComponent } from './components/accordion-element/accord
 import { FormsGuard } from './guards/forms.guard';
 import { metaReducers, reducers } from './reducers';
 import { environment } from '../../environments/environment';
+import { FormBuilderEffects } from './form-builder.effects';
 
 const formRoutes: Routes = [
   { path: 'forms', component: FormBuilderComponent, canActivate: [FormsGuard] },
@@ -39,7 +40,7 @@ const formRoutes: Routes = [
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot(),
+    EffectsModule.forRoot([FormBuilderEffects]),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

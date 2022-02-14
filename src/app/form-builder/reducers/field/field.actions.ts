@@ -2,55 +2,25 @@ import { Action } from '@ngrx/store';
 import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
 
 export enum fieldActionsType {
-  inputClick = '[FIELD] input clicked',
-  areaClick = '[FIELD] area clicked',
-  buttonClick = '[FIELD] button click',
-  checkboxClick = '[FIELD] checkbox click',
-  selectClick = '[FIELD] select click',
+  changeType = '[FIELD] change type',
+  changeChecked = '[FIELD] change checked id',
   addField = '[FIELD] add field',
   deleteField = '[FIELD] delete field',
   changeStyles = '[FIELD] change styles',
   changeFormStyles = '[FIELD] change form styles',
 }
 
-export class inputClickAction implements Action {
-  readonly type = fieldActionsType.inputClick;
+export class changeTypeAction implements Action {
+  readonly type = fieldActionsType.changeType;
   constructor(
     public payload: {
-      id: number;
+      type: string;
     }
   ) {}
 }
 
-export class buttonClickAction implements Action {
-  readonly type = fieldActionsType.buttonClick;
-  constructor(
-    public payload: {
-      id: number;
-    }
-  ) {}
-}
-
-export class areaClickAction implements Action {
-  readonly type = fieldActionsType.areaClick;
-  constructor(
-    public payload: {
-      id: number;
-    }
-  ) {}
-}
-
-export class checkboxClickAction implements Action {
-  readonly type = fieldActionsType.checkboxClick;
-  constructor(
-    public payload: {
-      id: number;
-    }
-  ) {}
-}
-
-export class selectClickAction implements Action {
-  readonly type = fieldActionsType.selectClick;
+export class changeCheckedAction implements Action {
+  readonly type = fieldActionsType.changeChecked;
   constructor(
     public payload: {
       id: number;
@@ -97,12 +67,9 @@ export class changeFormStylesAction implements Action {
 }
 
 export type FieldActions =
-  | inputClickAction
-  | buttonClickAction
-  | areaClickAction
-  | checkboxClickAction
-  | selectClickAction
+  | changeTypeAction
   | changeStylesAction
   | addFieldAction
   | deleteFieldAction
-  | changeFormStylesAction;
+  | changeFormStylesAction
+  | changeCheckedAction;
