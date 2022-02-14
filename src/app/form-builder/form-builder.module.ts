@@ -3,24 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Routes, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
 
 import { FormBuilderComponent } from './form-builder.component';
 import { FormFieldsComponent } from './components/form-fields/form-fields.component';
 import { AccordionElementComponent } from './components/accordion-element/accordion-element.component';
-import { FormsGuard } from './guards/forms.guard';
-import { metaReducers, reducers } from './reducers';
-import { environment } from '../../environments/environment';
+import { reducers } from './reducers';
 import { FormBuilderEffects } from './form-builder.effects';
-
-const formRoutes: Routes = [
-  { path: 'forms', component: FormBuilderComponent, canActivate: [FormsGuard] },
-];
+import { FormsBuilderRoutingModule } from './form-builder-routing.module';
+import { fieldNode } from './reducers/field/field.reducer';
 
 @NgModule({
   declarations: [
@@ -34,21 +27,10 @@ const formRoutes: Routes = [
     DragDropModule,
     ReactiveFormsModule,
     MatExpansionModule,
-    BrowserAnimationsModule,
     SharedModule,
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    EffectsModule.forRoot([FormBuilderEffects]),
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-      },
-    }),
-    RouterModule.forChild(formRoutes),
+    EffectsModule.forFeature([FormBuilderEffects]),
+    StoreModule.forFeature(fieldNode, reducers),
+    FormsBuilderRoutingModule,
   ],
 })
 export class FormsBuilderModule {}

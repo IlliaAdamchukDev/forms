@@ -1,25 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { fieldNode, FieldsState } from './field.reducer';
 
-export const selectFieldFeature = createFeatureSelector<FieldsState>(fieldNode);
+export const selectFieldFeature =
+  createFeatureSelector<{ field: FieldsState }>(fieldNode);
 
-export const selectType = createSelector(
-  selectFieldFeature,
-  (state: FieldsState) => {
-    return state.type;
-  }
-);
+export const selectType = createSelector(selectFieldFeature, (state) => {
+  return state.field.type;
+});
 
-export const selectCheckedId = createSelector(
-  selectFieldFeature,
-  (state: FieldsState) => {
-    return state.checkedId;
-  }
-);
+export const selectCheckedId = createSelector(selectFieldFeature, (state) => {
+  return state.field.checkedId;
+});
 
-export const selectFields = createSelector(
-  selectFieldFeature,
-  (state: FieldsState) => {
-    return state.fields;
-  }
-);
+export const selectFields = createSelector(selectFieldFeature, (state) => {
+  return state.field.fields;
+});

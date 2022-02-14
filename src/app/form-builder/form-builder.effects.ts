@@ -13,7 +13,6 @@ import { selectFields } from './reducers/field/field.selectors';
 @Injectable()
 export class FormBuilderEffects {
   constructor(private actions$: Actions, private store$: Store<FieldsState>) {}
-
   changedId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(

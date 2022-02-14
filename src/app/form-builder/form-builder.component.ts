@@ -40,7 +40,6 @@ export class FormBuilderComponent extends Unsubscriber {
     super();
     this.type$.pipe(takeUntil(this.notifier)).subscribe((type) => {
       this.fieldName = type;
-      console.log(type);
     });
     this.fields$.pipe(takeUntil(this.notifier)).subscribe((fields) => {
       if (this.styles !== fields[0]?.styles) {

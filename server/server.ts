@@ -45,7 +45,9 @@ server.post('/login', (req: any, res: any) => {
       el.email === req.body.email
   );
   if (!user || !(user.password === req.body.password)) {
-    return res.status(401).json({ message: 'User not found' });
+    return res
+      .status(401)
+      .json({ message: 'User not found or password is wrong' });
   }
 
   let userIndex = users.findIndex((el: any) => el.userId === user.id);
