@@ -2,7 +2,7 @@ span {
   width: 100%;
   font-size: 0.5em;
   text-align: left;
-  margin: 2em 0 0.3em 1em;
+  margin: 3rem 0 0.6rem 1em;
 }
 
 input {
@@ -11,5 +11,5 @@ input {
   outline: none;
   text-indent: 1em;
   border: solid 1px #4abdac;
-  color: #414040;
+  color: var(--login-text-darkgrey-color);
 }

@@ -1,14 +1,11 @@
-$margin2perc: 2%;
-$silver_color: silver;
-
 .accordion-element-styles {
-  background-color: #f5f5f5;
-  font-size: 24px;
-  border: solid $silver_color 1px;
-  margin: $margin2perc;
+  background-color: var(--smoke-white-color);
+  font-size: 1.3em;
+  border: solid var(--silver-color) 1px;
+  margin: var(--2perc);
   .add {
     button {
-      height: 40px;
+      height: 3.3em;
       border: solid grey 1px;
     }
   }
@@ -19,7 +16,7 @@ $silver_color: silver;
   div {
     display: grid;
     grid-template-columns: minmax(50%, auto) minmax(50%, auto);
-    margin: $margin2perc 0;
+    margin: var(--2perc) 0;
     label {
       text-align: left;
     }

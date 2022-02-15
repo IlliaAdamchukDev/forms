@@ -1,7 +1,7 @@
 .pop-up {
-  min-height: 60px;
-  background-color: orangered;
-  color: white;
+  min-height: 3em;
+  background-color: var(--orangered-color);
+  color: var(--white-color);
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -12,19 +12,19 @@
     bottom: 0;
     right: 0;
     position: absolute;
-    min-height: 30px;
-    min-width: 70px;
+    min-height: 2.5em;
+    min-width: 5em;
     outline: none;
     border: transparent;
-    background-color: orangered;
-    color: white;
+    background-color: var(--orangered-color);
+    color: var(--white-color);
     transition: 0.8s;
     &:hover {
       cursor: pointer;
       transition: 0.8s;
-      background-color: white;
+      background-color: var(--white-color);
       color: black;
-      border: solid orangered 1px;
+      border: solid var(--orangered-color) 1px;
     }
   }
 }

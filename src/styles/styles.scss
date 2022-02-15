@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   .mat-dialog-container {
     position: absolute;
     padding: 0;
@@ -9,7 +10,7 @@ body {
 }
 
 .silver-border {
-  border: solid silver 1px;
+  border: solid var(--silver-color) 1px;
 }
 
 .hover-scale {
