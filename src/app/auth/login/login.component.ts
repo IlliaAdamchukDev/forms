@@ -30,7 +30,6 @@ export class LoginComponent extends Unsubscriber {
       .pipe(takeUntil(this.notifier))
       .subscribe((val) => {
         this.isButton = val;
-        this.cdr.detectChanges();
         if (this.isButton.disabled) {
           this.auth.controls['email'].disable();
           this.auth.controls['password'].disable();
@@ -39,6 +38,10 @@ export class LoginComponent extends Unsubscriber {
           this.auth.controls['password'].enable();
         }
       });
+  }
+
+  ngDoCheck() {
+    this.cdr.markForCheck();
   }
 
   public auth: FormGroup = new FormGroup({

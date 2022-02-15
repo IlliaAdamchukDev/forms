@@ -6,10 +6,13 @@ span {
 }
 
 input {
-  min-height: 4em;
+  height: 4em;
   width: 100%;
   outline: none;
   text-indent: 1em;
-  border: solid 1px #4abdac;
+  border: solid 1px var(--silver-color);
   color: var(--login-text-darkgrey-color);
+  &:focus {
+    border: solid 1px var(--login-theme-blue-color);
+  }
 }

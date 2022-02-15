@@ -1,5 +1,5 @@
 .pop-up {
-  min-height: 3em;
+  min-height: 4rem;
   background-color: var(--orangered-color);
   color: var(--white-color);
   display: flex;
@@ -12,8 +12,8 @@
     bottom: 0;
     right: 0;
     position: absolute;
-    min-height: 2.5em;
-    min-width: 5em;
+    height: 2.5em;
+    width: 5em;
     outline: none;
     border: transparent;
     background-color: var(--orangered-color);
