@@ -8,7 +8,7 @@ import {
   changeStylesAction,
 } from '../../reducers/field/field.actions';
 import { FieldsState } from '../../reducers/field/field.reducer';
-import { FieldStyles, Field } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, Element } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './accordion-element-functions';
 import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
@@ -40,7 +40,7 @@ export class AccordionElementComponent extends Unsubscriber {
       });
   }
 
-  fields$: Observable<Field[]> = this.store$.pipe(select(selectFields));
+  fields$: Observable<Element[]> = this.store$.pipe(select(selectFields));
 
   @Input()
   public title: string = '';

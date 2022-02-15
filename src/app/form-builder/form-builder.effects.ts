@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, createAction, select } from '@ngrx/store';
 import { map, take } from 'rxjs';
-import { Field } from '../shared/interfaces/interfaces';
+import { Element } from '../shared/interfaces/interfaces';
 import {
   changeTypeAction,
   fieldActionsType,
@@ -28,7 +28,7 @@ export class FormBuilderEffects {
         )
       ),
       map((action) => {
-        let fields!: Field[];
+        let fields!: Element[];
         this.store$.pipe(select(selectFields), take(1)).subscribe((val) => {
           fields = val;
         });

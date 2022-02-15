@@ -1,11 +1,11 @@
 import { startStyles } from 'src/app/shared/constants/constants';
-import { FieldStyles, Field } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, Element } from 'src/app/shared/interfaces/interfaces';
 import { FieldActions, fieldActionsType } from './field.actions';
 
 export const fieldNode = 'field';
 
 export interface FieldsState {
-  fields: Field[];
+  fields: Element[];
   type: string;
   checkedId: number;
 }
