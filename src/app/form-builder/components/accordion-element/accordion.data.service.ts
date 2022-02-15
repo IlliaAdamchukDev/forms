@@ -19,7 +19,9 @@ export class AccordionDataService extends Unsubscriber {
   public fieldStyles$ = new Subject<FieldStyles>();
 
   public id$: Observable<number> = this.store$.pipe(select(selectCheckedId));
-  public fields$: Observable<Element[]> = this.store$.pipe(select(selectFields));
+  public fields$: Observable<Element[]> = this.store$.pipe(
+    select(selectFields)
+  );
 
   public override notifier = new Subject();
   constructor(private store$: Store<FieldsState>) {
