@@ -1,14 +1,15 @@
 span {
   width: 100%;
-  margin-top: 10%;
   font-size: 0.5em;
   text-align: left;
+  margin: 2em 0 0.3em 1em;
 }
 
 input {
-  min-height: 50px;
+  min-height: 4em;
   width: 100%;
   outline: none;
-  border: solid 1px rgb(221, 142, 168);
-  text-indent: 10px;
+  text-indent: 1em;
+  border: solid 1px #4ABDAC;
+  color: #414040;
 }
