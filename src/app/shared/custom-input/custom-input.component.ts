@@ -41,11 +41,9 @@ import {
 export class CustomInputComponent implements ControlValueAccessor, Validator {
   @Input() public inputTitle!: string;
   @Input() public inputType!: string;
+
   @ViewChild('element', { static: true, read: ElementRef })
   private elementRef!: ElementRef;
-
-  constructor(private renderer: Renderer2) {}
-
   @HostListener('input', ['$event.target.value'])
   private onInput = (value: string): void => {
     this.value = value;
@@ -53,6 +51,8 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
 
   private onTouch = (val: string): void => {};
   private val = '';
+
+  constructor(private renderer: Renderer2) {}
 
   public validate(control: AbstractControl): ValidationErrors | null {
     const regexp =
@@ -63,8 +63,6 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     }
     return control.value?.length && result ? null : { valid: false };
   }
-
-  ngOnInit() {} // to change start value this.value = "newValue";
 
   public set value(val: string) {
     if (val !== undefined && this.val !== val) {
@@ -83,7 +81,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     this.onInput(this.val);
   }
 
-  public registerOnChange(fn: (_: any) => void): void {
+  public registerOnChange(fn: (_: string) => void): void {
     this.onInput = (value: string) => {
       this.value = value;
       fn(value);

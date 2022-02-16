@@ -15,15 +15,20 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  public notifier = new Subject();
-  private isButton = new Subject<{ button: boolean; disabled: boolean }>();
+  public notifier$ = new Subject();
   public isButton$ = this.isButton.asObservable();
 
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private dialog: MatDialog
+    private matDialog: MatDialog,
+    private isButton: Subject<{ button: boolean; disabled: boolean }>
   ) {}
+
+  ngOnDestroy(): void {
+    this.notifier$.next(false);
+    this.notifier$.complete();
+  }
 
   public login(user: User): Subscription {
     this.isButton.next({ button: false, disabled: true });
@@ -32,10 +37,10 @@ export class AuthService {
     return this.httpClient
       .post('http://localhost:3000/login', user)
       .pipe(
-        takeUntil(this.notifier),
+        takeUntil(this.notifier$),
         catchError((err) => {
           this.isButton.next({ button: true, disabled: true });
-          this.dialog
+          this.matDialog
             .open(DialogComponent, {
               data: {
                 message: err.error?.message ?? 'Smth went wrong!',
@@ -53,7 +58,7 @@ export class AuthService {
         (res: { token?: string; expires?: string; message?: string }) => {
           this.isButton.next({ button: true, disabled: true });
           this.setSession(res);
-          this.dialog
+          this.matDialog
             .open(DialogComponent, {
               data: {
                 message: 'You have logged in!',
@@ -67,15 +72,6 @@ export class AuthService {
           this.router.navigate(['/forms']);
         }
       );
-  }
-
-  private setSession(authResult: {
-    token?: string;
-    expires?: string;
-    message?: string;
-  }) {
-    localStorage.setItem('id_token', authResult?.token ?? '');
-    localStorage.setItem('expires_at', authResult?.expires ?? '');
   }
 
   public logout() {
@@ -94,8 +90,12 @@ export class AuthService {
     return expiresAt;
   }
 
-  ngOnDestroy(): void {
-    this.notifier.next(false);
-    this.notifier.complete();
+  private setSession(authResult: {
+    token?: string;
+    expires?: string;
+    message?: string;
+  }) {
+    localStorage.setItem('id_token', authResult?.token ?? '');
+    localStorage.setItem('expires_at', authResult?.expires ?? '');
   }
 }

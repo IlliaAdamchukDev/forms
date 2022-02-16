@@ -17,19 +17,16 @@ export class AccordionDataService extends Unsubscriber {
   public fields!: Element[];
   public id!: number;
   public fieldStyles$ = new Subject<FieldStyles>();
+  public id$: Observable<number> = this.store.pipe(select(selectCheckedId));
+  public fields$: Observable<Element[]> = this.store.pipe(select(selectFields));
+  public override notifier$ = new Subject();
 
-  public id$: Observable<number> = this.store$.pipe(select(selectCheckedId));
-  public fields$: Observable<Element[]> = this.store$.pipe(
-    select(selectFields)
-  );
-
-  public override notifier = new Subject();
-  constructor(private store$: Store<FieldsState>) {
+  constructor(private store: Store<FieldsState>) {
     super();
     this.fields$
-      .pipe(takeUntil(this.notifier))
+      .pipe(takeUntil(this.notifier$))
       .subscribe((newFields) => (this.fields = newFields));
-    this.id$.pipe(takeUntil(this.notifier)).subscribe((id) => {
+    this.id$.pipe(takeUntil(this.notifier$)).subscribe((id) => {
       this.id = id;
 
       let el = this.fields.find((field) => field.id === id);

@@ -21,41 +21,40 @@ import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
   providers: [AccordionDataService],
 })
 export class AccordionElementComponent extends Unsubscriber {
-  public override notifier = new Subject();
+  @Input()
+  public title: string = '';
+  @Input()
+  public fieldName: string = '';
+
+  public panelOpenState = false;
+  public fieldStyles: FormGroup = createFormGroup();
+  public formStyles: FormGroup = createFormGroup();
+  public override notifier$ = new Subject();
+
+  private fields$: Observable<Element[]> = this.store.pipe(
+    select(selectFields)
+  );
 
   constructor(
-    private store$: Store<FieldsState>,
-    private data: AccordionDataService
+    private store: Store<FieldsState>,
+    private accordionDataService: AccordionDataService
   ) {
     super();
-    this.fields$.pipe(takeUntil(this.notifier)).subscribe((newFields) => {
+    this.fields$.pipe(takeUntil(this.notifier$)).subscribe((newFields) => {
       if (this.formStyles.value !== newFields[0].styles) {
         this.formStyles.setValue(newFields[0].styles);
       }
     });
-    this.data.fieldStyles$
-      .pipe(takeUntil(this.notifier))
+    this.accordionDataService.fieldStyles$
+      .pipe(takeUntil(this.notifier$))
       .subscribe((styles) => {
         this.fieldStyles.setValue(styles);
       });
   }
 
-  fields$: Observable<Element[]> = this.store$.pipe(select(selectFields));
-
-  @Input()
-  public title: string = '';
-
-  @Input()
-  public fieldName: string = '';
-
-  public panelOpenState = false;
-
-  public fieldStyles: FormGroup = createFormGroup();
-  public formStyles: FormGroup = createFormGroup();
-
-  sendStyles(): void {
+  public sendStyles(): void {
     if (this.fieldName !== 'form') {
-      this.store$.dispatch(
+      this.store.dispatch(
         new changeStylesAction({
           styles: this.fieldStyles.value,
         })
@@ -63,7 +62,7 @@ export class AccordionElementComponent extends Unsubscriber {
       return;
     }
 
-    this.store$.dispatch(
+    this.store.dispatch(
       new changeFormStylesAction({
         styles: this.formStyles.value,
       })

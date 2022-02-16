@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store, createAction, select } from '@ngrx/store';
-import { map, take, tap } from 'rxjs';
+import { Store, createAction, select, Action } from '@ngrx/store';
+import { map, take } from 'rxjs';
 import { Element } from '../shared/interfaces/interfaces';
 import {
+  changeCheckedAction,
   changeTypeAction,
   fieldActionsType,
 } from './reducers/field/field.actions';
@@ -12,7 +13,7 @@ import { selectFields } from './reducers/field/field.selectors';
 
 @Injectable()
 export class FormBuilderEffects {
-  constructor(private actions$: Actions, private store$: Store<FieldsState>) {}
+  constructor(private actions$: Actions, private store: Store<FieldsState>) {}
   changedId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -27,9 +28,9 @@ export class FormBuilderEffects {
           }
         )
       ),
-      map((action) => {
+      map((action: changeCheckedAction): Action => {
         let fields!: Element[];
-        this.store$.pipe(select(selectFields), take(1)).subscribe((val) => {
+        this.store.pipe(select(selectFields), take(1)).subscribe((val) => {
           fields = val;
         });
         let fieldType = fields.find((el) => el.id === action.payload.id)?.type;

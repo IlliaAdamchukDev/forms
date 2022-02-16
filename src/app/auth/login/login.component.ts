@@ -17,17 +17,21 @@ import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends Unsubscriber {
-  public override notifier = new Subject();
+  public override notifier$ = new Subject();
   public isButton = { button: true, disabled: false };
+  public auth: FormGroup = new FormGroup({
+    email: new FormControl(),
+    password: new FormControl(),
+  });
 
   constructor(
     private authService: AuthService,
-    private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private matDialog: MatDialog,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     super();
     this.authService.isButton$
-      .pipe(takeUntil(this.notifier))
+      .pipe(takeUntil(this.notifier$))
       .subscribe((val) => {
         this.isButton = val;
         if (this.isButton.disabled) {
@@ -41,15 +45,10 @@ export class LoginComponent extends Unsubscriber {
   }
 
   ngDoCheck() {
-    this.cdr.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 
-  public auth: FormGroup = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
-  });
-
-  login(): void {
+  public login(): void {
     if (this.auth.valid) {
       this.authService.login({
         email: this.auth.controls['email'].value,
@@ -57,7 +56,7 @@ export class LoginComponent extends Unsubscriber {
       });
       return;
     }
-    this.dialog.open(DialogComponent, {
+    this.matDialog.open(DialogComponent, {
       data: {
         message: 'Invalid data',
       },

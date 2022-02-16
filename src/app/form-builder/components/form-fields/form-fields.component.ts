@@ -16,13 +16,22 @@ import { changeCheckedAction } from '../../reducers/field/field.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldsComponent extends Unsubscriber {
-  public fields$ = this.store$.pipe(select(selectFields));
-  override notifier = new Subject();
-  public styles!: FieldStyles;
+  @Input()
+  public field: string = '';
+  @Input()
+  public isChangable: boolean = false;
+  @Input()
+  public key!: number;
+  @Input()
+  public form!: FormGroup;
 
-  constructor(private store$: Store, private dialog: MatDialog) {
+  public styles!: FieldStyles;
+  public fields$ = this.store.pipe(select(selectFields));
+  public override notifier$ = new Subject();
+
+  constructor(private store: Store, private matDialog: MatDialog) {
     super();
-    this.fields$.pipe(takeUntil(this.notifier)).subscribe((fields) => {
+    this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       let el = fields.find(
         (field: { id: number; styles: FieldStyles }) => field.id === this.key
       );
@@ -31,24 +40,13 @@ export class FormFieldsComponent extends Unsubscriber {
       }
     });
   }
-  @Input()
-  public field: string = '';
 
-  @Input()
-  public isChangable: boolean = false;
-
-  @Input()
-  public key!: number;
-
-  @Input()
-  public form!: FormGroup;
-
-  message(): void {
+  public message(): void {
     if (!this.isChangable) {
       return;
     }
     if (this.form.invalid) {
-      this.dialog.open(DialogComponent, {
+      this.matDialog.open(DialogComponent, {
         data: {
           message: 'Check if all required fields are filled!',
         },
@@ -61,14 +59,14 @@ export class FormFieldsComponent extends Unsubscriber {
       message = message + this.form.value[key] + '\n';
     }
     message = message + 'Succesfully sended!';
-    this.dialog.open(DialogComponent, {
+    this.matDialog.open(DialogComponent, {
       data: {
         message,
       },
     });
   }
 
-  changeCheckedId(): void {
-    this.store$.dispatch(new changeCheckedAction({ id: this.key }));
+  public changeCheckedId(): void {
+    this.store.dispatch(new changeCheckedAction({ id: this.key }));
   }
 }
