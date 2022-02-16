@@ -8,6 +8,7 @@ export enum fieldActionsType {
   deleteField = '[FIELD] delete field',
   changeStyles = '[FIELD] change styles',
   changeFormStyles = '[FIELD] change form styles',
+  setStateToInitial = '[FIELD] set state to initial',
 }
 
 export class changeTypeAction implements Action {
@@ -66,10 +67,15 @@ export class changeFormStylesAction implements Action {
   ) {}
 }
 
+export class setStateToInitialAction implements Action {
+  readonly type = fieldActionsType.setStateToInitial;
+}
+
 export type FieldActions =
   | changeTypeAction
   | changeStylesAction
   | addFieldAction
   | deleteFieldAction
   | changeFormStylesAction
-  | changeCheckedAction;
+  | changeCheckedAction
+  | setStateToInitialAction;

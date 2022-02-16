@@ -8,6 +8,7 @@ import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
   addFieldAction,
   deleteFieldAction,
+  setStateToInitialAction,
 } from './reducers/field/field.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
@@ -106,5 +107,6 @@ export class FormBuilderComponent extends Unsubscriber {
 
   logout(): void {
     this.auth.logout();
+    this.store$.dispatch(new setStateToInitialAction());
   }
 }

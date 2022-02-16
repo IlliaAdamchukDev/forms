@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -26,7 +25,6 @@ import { fieldNode } from './reducers/field/field.reducer';
     FormsModule,
     DragDropModule,
     ReactiveFormsModule,
-    MatExpansionModule,
     SharedModule,
     EffectsModule.forFeature([FormBuilderEffects]),
     StoreModule.forFeature(fieldNode, reducers),

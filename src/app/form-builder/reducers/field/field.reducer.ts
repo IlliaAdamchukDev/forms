@@ -61,6 +61,8 @@ export const fieldReducer = (state = initialState, action: FieldActions) => {
       let newState = JSON.parse(JSON.stringify(state));
       newState.fields[0].styles = action.payload.styles;
       return newState;
+    case fieldActionsType.setStateToInitial:
+      return JSON.parse(JSON.stringify(initialState));
     default:
       return {
         ...state,

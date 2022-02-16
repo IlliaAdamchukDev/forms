@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, createAction, select } from '@ngrx/store';
-import { map, take } from 'rxjs';
+import { map, take, tap } from 'rxjs';
 import { Element } from '../shared/interfaces/interfaces';
 import {
   changeTypeAction,

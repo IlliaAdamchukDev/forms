@@ -1,5 +1,11 @@
+header {
+  display: grid;
+  grid-template-columns: 1fr 8em;
+  margin: 0 0 0.3rem 0;
+}
+
 .logout {
-  position: absolute;
+  margin: auto 1rem auto 0;
   top: 1%;
   right: 2%;
   height: 1.5rem;
@@ -30,7 +36,7 @@ h1 {
 
 .form-section {
   display: grid;
-  grid-auto-rows: minmax(max-content, auto);
+  grid-auto-rows: minmax(3rem, auto);
   height: 100%;
   width: 100%;
   margin: auto;

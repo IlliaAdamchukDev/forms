@@ -1,6 +1,6 @@
 .accordion-element-styles {
   background-color: var(--smoke-white-color);
-  font-size: 1.3em;
+  font-size: 1.3rem;
   border: solid var(--silver-color) 1px;
   margin: var(--2perc);
   .add {
@@ -12,7 +12,7 @@
 }
 
 .form-styles {
-  font-size: 0.6em;
+  font-size: 0.7rem;
   div {
     display: grid;
     grid-template-columns: minmax(50%, auto) minmax(50%, auto);
