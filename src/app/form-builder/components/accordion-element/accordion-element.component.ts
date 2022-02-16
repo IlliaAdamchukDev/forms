@@ -4,8 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
 import {
-  changeFormStylesAction,
-  changeStylesAction,
+  changeFormStyles,
+  changeStyles,
 } from '../../reducers/field/field.actions';
 import { FieldsState } from '../../reducers/field/field.reducer';
 import { Element } from 'src/app/shared/interfaces/interfaces';
@@ -55,7 +55,7 @@ export class AccordionElementComponent extends Unsubscriber {
   public sendStyles(): void {
     if (this.fieldName !== 'form') {
       this.store.dispatch(
-        new changeStylesAction({
+        changeStyles({
           styles: this.fieldStyles.value,
         })
       );
@@ -63,7 +63,7 @@ export class AccordionElementComponent extends Unsubscriber {
     }
 
     this.store.dispatch(
-      new changeFormStylesAction({
+      changeFormStyles({
         styles: this.formStyles.value,
       })
     );

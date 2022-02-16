@@ -6,13 +6,13 @@ import { FieldStyles } from '../shared/interfaces/interfaces';
 import { Subject, takeUntil } from 'rxjs';
 import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
-  addFieldAction,
-  deleteFieldAction,
-  setStateToInitialAction,
+  addField,
+  deleteField,
+  setStateToInitial,
 } from './reducers/field/field.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
-import { startStyles } from '../shared/constants/constants';
+import { startStyles, fieldsArr } from '../shared/constants/constants';
 import { Unsubscriber } from '../shared/Unsubscriber/Unsubscriber';
 
 @Component({
@@ -31,13 +31,7 @@ export class FormBuilderComponent extends Unsubscriber {
     3: new FormControl(),
     4: new FormControl(),
   });
-  public fields = [
-    { fieldName: 'input', key: 0 },
-    { fieldName: 'textarea', key: 1 },
-    { fieldName: 'button', key: 2 },
-    { fieldName: 'checkbox', key: 3 },
-    { fieldName: 'select', key: 4 },
-  ];
+  public fields = fieldsArr;
   public form: { fieldName: string; key: number }[] = [];
   public override notifier$ = new Subject();
 
@@ -87,7 +81,7 @@ export class FormBuilderComponent extends Unsubscriber {
 
     if (event.container.data === this.fields) {
       this.store.dispatch(
-        new deleteFieldAction({ id: this.form[event.previousIndex].key })
+        deleteField({ id: this.form[event.previousIndex].key })
       );
       this.form.splice(event.previousIndex, 1);
       return;
@@ -97,16 +91,16 @@ export class FormBuilderComponent extends Unsubscriber {
     });
     this.form[event.currentIndex].key = ++this.index;
     this.store.dispatch(
-      new addFieldAction({
+      addField({
         id: this.form[event.currentIndex].key,
         styles: JSON.parse(JSON.stringify(startStyles)),
-        type: this.fields[event.previousIndex].fieldName,
+        fieldType: this.fields[event.previousIndex].fieldName,
       })
     );
   }
 
   public logout(): void {
     this.authService.logout();
-    this.store.dispatch(new setStateToInitialAction());
+    this.store.dispatch(setStateToInitial());
   }
 }

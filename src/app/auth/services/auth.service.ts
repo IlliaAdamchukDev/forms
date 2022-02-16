@@ -16,13 +16,13 @@ export interface User {
 })
 export class AuthService {
   public notifier$ = new Subject();
+  private isButton = new Subject<{ button: boolean; disabled: boolean }>();
   public isButton$ = this.isButton.asObservable();
 
   constructor(
     private httpClient: HttpClient,
     private router: Router,
     private matDialog: MatDialog,
-    private isButton: Subject<{ button: boolean; disabled: boolean }>
   ) {}
 
   ngOnDestroy(): void {

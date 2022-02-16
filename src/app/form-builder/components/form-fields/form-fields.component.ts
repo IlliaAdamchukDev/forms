@@ -7,7 +7,7 @@ import { selectFields } from '../../reducers/field/field.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
-import { changeCheckedAction } from '../../reducers/field/field.actions';
+import { changeChecked } from '../../reducers/field/field.actions';
 
 @Component({
   selector: 'app-form-fields',
@@ -67,6 +67,6 @@ export class FormFieldsComponent extends Unsubscriber {
   }
 
   public changeCheckedId(): void {
-    this.store.dispatch(new changeCheckedAction({ id: this.key }));
+    this.store.dispatch(changeChecked({ id: this.key }));
   }
 }

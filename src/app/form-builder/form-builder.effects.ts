@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store, createAction, select, Action } from '@ngrx/store';
+import { Store, select, Action } from '@ngrx/store';
 import { map, take } from 'rxjs';
 import { Element } from '../shared/interfaces/interfaces';
 import {
-  changeCheckedAction,
-  changeTypeAction,
-  fieldActionsType,
+  changeChecked,
+  changeType
 } from './reducers/field/field.actions';
 import { FieldsState } from './reducers/field/field.reducer';
 import { selectFields } from './reducers/field/field.selectors';
@@ -17,24 +16,15 @@ export class FormBuilderEffects {
   changedId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
-        createAction(
-          fieldActionsType.changeChecked,
-          function prepare(id: number) {
-            return {
-              payload: {
-                id: id,
-              },
-            };
-          }
-        )
+        changeChecked
       ),
-      map((action: changeCheckedAction): Action => {
+      map((data): Action => {
         let fields!: Element[];
         this.store.pipe(select(selectFields), take(1)).subscribe((val) => {
           fields = val;
         });
-        let fieldType = fields.find((el) => el.id === action.payload.id)?.type;
-        return new changeTypeAction({ type: fieldType ?? '' });
+        let fieldType = fields.find((el) => el.id === data.id)?.type;
+        return changeType({ fieldType: fieldType ?? '' });
       })
     )
   );
