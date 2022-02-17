@@ -22,7 +22,6 @@ import { Unsubscriber } from '../shared/Unsubscriber/Unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormBuilderComponent extends Unsubscriber {
-  public fieldName = '';
   public styles!: FieldStyles;
   public group!: FormGroup;
   public upGroup = new FormGroup({
@@ -34,10 +33,9 @@ export class FormBuilderComponent extends Unsubscriber {
   public fields = fieldsArr;
   public form: { fieldName: string; key: number }[] = [];
   public override notifier$ = new Subject();
+  public type$ = this.store.pipe(select(selectType), takeUntil(this.notifier$));
 
-  private index = 4;
   private values!: { [key: string | number]: string };
-  private type$ = this.store.pipe(select(selectType));
   private fields$ = this.store.pipe(select(selectFields));
 
   constructor(
@@ -45,9 +43,6 @@ export class FormBuilderComponent extends Unsubscriber {
     private authService: AuthService
   ) {
     super();
-    this.type$.pipe(takeUntil(this.notifier$)).subscribe((type) => {
-      this.fieldName = type;
-    });
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       if (this.styles !== fields[0]?.styles) {
         this.styles = fields[0]?.styles ?? this.styles;
@@ -55,7 +50,7 @@ export class FormBuilderComponent extends Unsubscriber {
 
       let newGroup: { [key: string | number]: FormControl } = {};
       fields
-        .filter((el) => el.id > 0 && el.type !== 'button')
+        .filter((el) => el.id > 0 && el.fieldType !== 'button')
         .forEach((el) => {
           newGroup[el.id] = el.styles.required
             ? new FormControl('', Validators.required)
@@ -89,7 +84,7 @@ export class FormBuilderComponent extends Unsubscriber {
     this.form.splice(event.currentIndex, 0, {
       ...event.previousContainer.data[event.previousIndex],
     });
-    this.form[event.currentIndex].key = ++this.index;
+    this.form[event.currentIndex].key = Date.now();
     this.store.dispatch(
       addField({
         id: this.form[event.currentIndex].key,

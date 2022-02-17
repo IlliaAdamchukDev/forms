@@ -11,7 +11,7 @@
       ></app-accordion-element>
       <app-accordion-element
         [title]="'Element'"
-        [fieldName]="fieldName"
+        [fieldName]="type$ | async | notNull"
       ></app-accordion-element>
     </mat-accordion>
   </div>

@@ -11,8 +11,8 @@ export interface FieldStyles {
   color: string;
 }
 
-export interface Element {
+export interface FormElement {
   id: number;
   styles: FieldStyles;
-  type: string;
+  fieldType: string;
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { FieldsState } from '../../reducers/field/field.reducer';
-import { FieldStyles, Element } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
 import {
   selectCheckedId,
   selectFields,
@@ -14,11 +14,13 @@ import { startStyles } from 'src/app/shared/constants/constants';
   providedIn: 'root',
 })
 export class AccordionDataService extends Unsubscriber {
-  public fields!: Element[];
+  public fields!: FormElement[];
   public id!: number;
   public fieldStyles$ = new Subject<FieldStyles>();
   public id$: Observable<number> = this.store.pipe(select(selectCheckedId));
-  public fields$: Observable<Element[]> = this.store.pipe(select(selectFields));
+  public fields$: Observable<FormElement[]> = this.store.pipe(
+    select(selectFields)
+  );
   public override notifier$ = new Subject();
 
   constructor(private store: Store<FieldsState>) {

@@ -8,7 +8,7 @@ import {
   changeStyles,
 } from '../../reducers/field/field.actions';
 import { FieldsState } from '../../reducers/field/field.reducer';
-import { Element } from 'src/app/shared/interfaces/interfaces';
+import { FormElement } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './accordion-element-functions';
 import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
@@ -31,7 +31,7 @@ export class AccordionElementComponent extends Unsubscriber {
   public formStyles: FormGroup = createFormGroup();
   public override notifier$ = new Subject();
 
-  private fields$: Observable<Element[]> = this.store.pipe(
+  private fields$: Observable<FormElement[]> = this.store.pipe(
     select(selectFields)
   );
 

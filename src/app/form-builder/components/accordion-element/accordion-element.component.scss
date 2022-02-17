@@ -3,6 +3,10 @@
   font-size: 1.3rem;
   border: solid var(--silver-color) 1px;
   margin: var(--2perc);
+  mat-expansion-panel-header {
+    height: 2rem;
+  }
+
   .add {
     button {
       height: 3.3em;
