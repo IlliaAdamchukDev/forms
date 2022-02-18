@@ -35,7 +35,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     return this.httpClient
-      .post('http://localhost:3000/login', user)
+      .post('/api/login', user)
       .pipe(
         takeUntil(this.notifier$),
         catchError((err) => {

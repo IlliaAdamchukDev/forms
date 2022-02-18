@@ -39,7 +39,7 @@ let users = [
   },
 ];
 
-server.post('/login', (req: any, res: any) => {
+server.post('/api/login', (req: any, res: any) => {
   let user = db.data.find(
     (el: { email: string; password: string; id: string }) =>
       el.email === req.body.email
@@ -82,7 +82,7 @@ server.post('/login', (req: any, res: any) => {
   });
 });
 
-server.get('/forms', (req: any, res: any) => {
+server.get('/api/forms', (req: any, res: any) => {
   try {
     if (jwt.verify(req.headers.authorization.substring(7), RSA_PUBLIC_KEY)) {
       return res.status(200).json({ message: 'Valid' });
