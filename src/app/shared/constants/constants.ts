@@ -1,4 +1,6 @@
-export let startStyles = {
+import { FieldStyles, DraggableElement } from '../interfaces/interfaces';
+
+export const startStyles: FieldStyles = {
   height: '',
   width: '',
   placeholder: '',
@@ -11,7 +13,7 @@ export let startStyles = {
   color: '',
 };
 
-export let fieldsArr = [
+export const fieldsArr: DraggableElement[] = [
   { fieldName: 'input', key: 0 },
   { fieldName: 'textarea', key: 1 },
   { fieldName: 'button', key: 2 },

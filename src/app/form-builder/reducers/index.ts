@@ -1,6 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { fieldNode, FieldsState, fieldReducer } from './field/field.reducer';
-import { environment } from '../../../environments/environment';
+import { fieldNode, fieldReducer } from './field/field.reducer';
+import { FieldsState } from '../../shared/interfaces/interfaces';
 
 export interface State {
   [fieldNode]: FieldsState;

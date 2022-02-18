@@ -16,3 +16,22 @@ export interface FormElement {
   styles: FieldStyles;
   fieldType: string;
 }
+
+export interface DraggableElement {
+  fieldName: string;
+  key: number;
+}
+
+export interface FormValues {
+  [key: string | number]: string;
+}
+
+export interface FieldsState {
+  fields: FormElement[];
+  fieldType: string;
+  checkedId: number;
+}
+
+export interface FieldFeature {
+  field: FieldsState;
+}

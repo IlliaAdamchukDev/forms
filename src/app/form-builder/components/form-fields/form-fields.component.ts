@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
@@ -32,9 +32,7 @@ export class FormFieldsComponent extends Unsubscriber {
   constructor(private store: Store, private matDialog: MatDialog) {
     super();
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
-      let el = fields.find(
-        (field: { id: number; styles: FieldStyles }) => field.id === this.key
-      );
+      let el = fields.find((field: FormElement) => field.id === this.key);
       if (this.styles !== el?.styles) {
         this.styles = el?.styles ?? this.styles;
       }

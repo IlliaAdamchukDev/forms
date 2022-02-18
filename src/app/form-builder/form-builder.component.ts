@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { select, Store } from '@ngrx/store';
-import { FieldsState } from './reducers/field/field.reducer';
-import { FieldStyles } from '../shared/interfaces/interfaces';
+import {
+  DraggableElement,
+  FieldStyles,
+  FormValues,
+  FieldsState,
+} from '../shared/interfaces/interfaces';
 import { Subject, takeUntil } from 'rxjs';
 import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
@@ -31,11 +35,11 @@ export class FormBuilderComponent extends Unsubscriber {
     4: new FormControl(),
   });
   public fields = fieldsArr;
-  public form: { fieldName: string; key: number }[] = [];
+  public form: DraggableElement[] = [];
   public override notifier$ = new Subject();
   public type$ = this.store.pipe(select(selectType), takeUntil(this.notifier$));
 
-  private values!: { [key: string | number]: string };
+  private values!: FormValues;
   private fields$ = this.store.pipe(select(selectFields));
 
   constructor(
@@ -64,7 +68,7 @@ export class FormBuilderComponent extends Unsubscriber {
     });
   }
 
-  public drop(event: CdkDragDrop<{ fieldName: string; key: number }[]>): void {
+  public drop(event: CdkDragDrop<DraggableElement[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

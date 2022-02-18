@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { FieldStyles } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
 
 export enum fieldActionsType {
   changeType = '[FIELD] change type',
@@ -23,11 +23,7 @@ export const changeChecked = createAction(
 
 export const addField = createAction(
   fieldActionsType.addField,
-  props<{
-    id: number;
-    styles: FieldStyles;
-    fieldType: string;
-  }>()
+  props<FormElement>()
 );
 
 export const deleteField = createAction(

@@ -7,8 +7,7 @@ import {
   changeFormStyles,
   changeStyles,
 } from '../../reducers/field/field.actions';
-import { FieldsState } from '../../reducers/field/field.reducer';
-import { FormElement } from 'src/app/shared/interfaces/interfaces';
+import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './accordion-element-functions';
 import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
