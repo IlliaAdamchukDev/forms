@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
 
 export enum fieldActionsType {
   changeType = '[FIELD] change type',

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
 import {
   changeFormStyles,
@@ -9,8 +9,8 @@ import {
 } from '../../reducers/field/field.actions';
 import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
-import { createFormGroup } from './accordion-element-functions';
-import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
+import { createFormGroup } from './utils/accordion-element-functions';
+import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-accordion-element',
@@ -29,9 +29,7 @@ export class AccordionElementComponent extends Unsubscriber {
   public fieldStyles: FormGroup = createFormGroup();
   public formStyles: FormGroup = createFormGroup();
 
-  private fields$: Observable<FormElement[]> = this.store.pipe(
-    select(selectFields)
-  );
+  private fields$: Observable<FormElement[]> = this.store.select(selectFields);
 
   constructor(
     private store: Store<FieldsState>,

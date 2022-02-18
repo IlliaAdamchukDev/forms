@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { NotFountPageComponent } from './not-fount-page/not-fount-page.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 const appRoutes: Routes = [
   {
@@ -15,7 +15,7 @@ const appRoutes: Routes = [
         (m) => m.FormsBuilderModule
       ),
   },
-  { path: '**', component: NotFountPageComponent },
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({

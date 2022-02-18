@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
-import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
-import { selectFields } from '../../reducers/field/field.selectors';
+import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
+import { takeUntil } from 'rxjs';
+import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
+import { selectFields } from '../../reducers/field/field.selectors';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 import { changeChecked } from '../../reducers/field/field.actions';
@@ -26,7 +26,7 @@ export class FormFieldsComponent extends Unsubscriber {
   public form!: FormGroup;
 
   public styles!: FieldStyles;
-  public fields$ = this.store.pipe(select(selectFields));
+  public fields$ = this.store.select(selectFields);
 
   constructor(private store: Store, private matDialog: MatDialog) {
     super(); 
