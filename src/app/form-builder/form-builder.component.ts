@@ -17,7 +17,7 @@ import {
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
 import { startStyles, fieldsArr } from '../shared/constants/constants';
-import { Unsubscriber } from '../shared/Unsubscriber/Unsubscriber';
+import { Unsubscriber } from '../shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-form-builder',
@@ -36,7 +36,6 @@ export class FormBuilderComponent extends Unsubscriber {
   });
   public fields = fieldsArr;
   public form: DraggableElement[] = [];
-  public override notifier$ = new Subject();
   public type$ = this.store.pipe(select(selectType), takeUntil(this.notifier$));
 
   private values!: FormValues;
@@ -47,6 +46,9 @@ export class FormBuilderComponent extends Unsubscriber {
     private authService: AuthService
   ) {
     super();
+  }
+
+  ngOnInit() {
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       if (this.styles !== fields[0]?.styles) {
         this.styles = fields[0]?.styles ?? this.styles;

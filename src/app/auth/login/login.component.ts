@@ -5,10 +5,11 @@ import {
 } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
-import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
+import { validateEmail } from './utils/login-functions';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,6 @@ import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends Unsubscriber {
-  public override notifier$ = new Subject();
   public isButton = { button: true, disabled: false };
   public auth: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -30,18 +30,21 @@ export class LoginComponent extends Unsubscriber {
     private changeDetectorRef: ChangeDetectorRef
   ) {
     super();
+  }
+
+  ngOnInit() {
     this.authService.isButton$
-      .pipe(takeUntil(this.notifier$))
-      .subscribe((val) => {
-        this.isButton = val;
-        if (this.isButton.disabled) {
-          this.auth.controls['email'].disable();
-          this.auth.controls['password'].disable();
-        } else {
-          this.auth.controls['email'].enable();
-          this.auth.controls['password'].enable();
-        }
-      });
+    .pipe(takeUntil(this.notifier$))
+    .subscribe((val) => {
+      this.isButton = val;
+      if (this.isButton.disabled) {
+        this.auth.controls['email'].disable();
+        this.auth.controls['password'].disable();
+      } else {
+        this.auth.controls['email'].enable();
+        this.auth.controls['password'].enable();
+      }
+    });
   }
 
   ngDoCheck() {
@@ -49,7 +52,7 @@ export class LoginComponent extends Unsubscriber {
   }
 
   public login(): void {
-    if (this.auth.valid) {
+    if (this.auth.valid && validateEmail(this.auth.controls['email'].value)) {
       this.authService.login({
         email: this.auth.controls['email'].value,
         password: this.auth.controls['password'].value,

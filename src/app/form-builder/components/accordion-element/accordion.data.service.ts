@@ -10,7 +10,7 @@ import {
   selectCheckedId,
   selectFields,
 } from '../../reducers/field/field.selectors';
-import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
+import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 import { startStyles } from 'src/app/shared/constants/constants';
 
 @Injectable({
@@ -24,10 +24,12 @@ export class AccordionDataService extends Unsubscriber {
   public fields$: Observable<FormElement[]> = this.store.pipe(
     select(selectFields)
   );
-  public override notifier$ = new Subject();
 
   constructor(private store: Store<FieldsState>) {
     super();
+  }
+
+  ngOnInit() {
     this.fields$
       .pipe(takeUntil(this.notifier$))
       .subscribe((newFields) => (this.fields = newFields));
