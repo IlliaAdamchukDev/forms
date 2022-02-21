@@ -1,46 +1,49 @@
 import { createAction, props } from '@ngrx/store';
-import { IFormElementStyles, IFormElement } from '../../../shared/interfaces/interfaces';
+import {
+  IFormElementStyles,
+  IFormElement,
+} from '../../../shared/interfaces/interfaces';
 
-export enum fieldActionsType {
+export enum formElementsActionsType {
   changeType = '[FIELD] change type',
   changeChecked = '[FIELD] change checked id',
-  addField = '[FIELD] add field',
-  deleteField = '[FIELD] delete field',
+  addFormElement = '[FIELD] add field',
+  deleteFormElement = '[FIELD] delete field',
   changeStyles = '[FIELD] change styles',
   changeFormStyles = '[FIELD] change form styles',
   setStateToInitial = '[FIELD] set state to initial',
 }
 
 export const changeType = createAction(
-  fieldActionsType.changeType,
+  formElementsActionsType.changeType,
   props<{ fieldType: string }>()
 );
 
 export const changeChecked = createAction(
-  fieldActionsType.changeChecked,
+  formElementsActionsType.changeChecked,
   props<{ id: number }>()
 );
 
-export const addField = createAction(
-  fieldActionsType.addField,
+export const addFormElement = createAction(
+  formElementsActionsType.addFormElement,
   props<IFormElement>()
 );
 
-export const deleteField = createAction(
-  fieldActionsType.deleteField,
+export const deleteFormElement = createAction(
+  formElementsActionsType.deleteFormElement,
   props<{ id: number }>()
 );
 
 export const changeStyles = createAction(
-  fieldActionsType.changeStyles,
+  formElementsActionsType.changeStyles,
   props<{ styles: IFormElementStyles }>()
 );
 
 export const changeFormStyles = createAction(
-  fieldActionsType.changeFormStyles,
+  formElementsActionsType.changeFormStyles,
   props<{ styles: IFormElementStyles }>()
 );
 
 export const setStateToInitial = createAction(
-  fieldActionsType.setStateToInitial
+  formElementsActionsType.setStateToInitial
 );

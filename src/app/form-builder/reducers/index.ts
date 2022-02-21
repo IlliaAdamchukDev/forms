@@ -1,5 +1,5 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { formElementNode, fieldReducer } from './field/field.reducer';
+import { formElementNode, formElementReducer } from './form/form.reducer';
 import { IFormElementsState } from '../../shared/interfaces/interfaces';
 
 export interface State {
@@ -7,5 +7,5 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State, any> = {
-  [formElementNode]: fieldReducer,
+  [formElementNode]: formElementReducer,
 };

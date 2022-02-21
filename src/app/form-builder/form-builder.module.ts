@@ -7,17 +7,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
 
 import { FormBuilderComponent } from './form-builder.component';
-import { FormFieldsComponent } from './components/form-fields/form-fields.component';
+import { FormElementComponent } from './components/form-element/form-element.component';
 import { AccordionElementComponent } from './components/accordion-element/accordion-element.component';
 import { reducers } from './reducers';
 import { FormBuilderEffects } from './form-builder.effects';
 import { FormsBuilderRoutingModule } from './form-builder-routing.module';
-import { formElementNode } from './reducers/field/field.reducer';
+import { formElementNode } from './reducers/form/form.reducer';
 
 @NgModule({
   declarations: [
     FormBuilderComponent,
-    FormFieldsComponent,
+    FormElementComponent,
     AccordionElementComponent,
   ],
   imports: [

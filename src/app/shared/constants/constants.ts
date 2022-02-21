@@ -1,4 +1,7 @@
-import { IFormElementStyles, IDraggableElement } from '../interfaces/interfaces';
+import {
+  IFormElementStyles,
+  IDraggableElement,
+} from '../interfaces/interfaces';
 
 export const startStyles: IFormElementStyles = {
   height: '',

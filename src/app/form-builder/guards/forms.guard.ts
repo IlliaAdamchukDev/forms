@@ -11,19 +11,17 @@ export class FormsGuard implements CanActivate {
   constructor(private router: Router, private httpClient: HttpClient) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return this.httpClient
-      .get<{ message: string }>('/api/forms')
-      .pipe(
-        map((data) => {
-          if (data.message !== 'Valid') {
-            this.router.navigate(['/']);
-          }
-          return true;
-        }),
-        catchError(() => {
+    return this.httpClient.get<{ message: string }>('/api/forms').pipe(
+      map((data) => {
+        if (data.message !== 'Valid') {
           this.router.navigate(['/']);
-          return of(false);
-        })
-      );
+        }
+        return true;
+      }),
+      catchError(() => {
+        this.router.navigate(['/']);
+        return of(false);
+      })
+    );
   }
 }

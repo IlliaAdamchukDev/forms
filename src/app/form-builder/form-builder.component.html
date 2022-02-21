@@ -24,15 +24,16 @@
     (cdkDropListDropped)="drop($event)"
     cdkDropListOrientation="horizontal"
   >
-    <app-form-fields *ngFor="let el of draggableFormElements"
-      [form]="upGroup"    
+    <app-form-element
+      *ngFor="let el of draggableFormElements"
+      [form]="upGroup"
       [formElementName]="el.fieldName"
       [key]="el.key"
       [isChangable]="false"
       cdkDrag
     >
       <div class="custom-placeholder" *cdkDragPlaceholder></div>
-    </app-form-fields>
+    </app-form-element>
   </div>
   <form
     [ngStyle]="formSectionStyles"
@@ -43,14 +44,15 @@
     class="form-section silver-border"
     (cdkDropListDropped)="drop($event)"
   >
-    <app-form-fields *ngFor="let el of droppedFormElements"
-      [form]="formSectionGroup"    
+    <app-form-element
+      *ngFor="let el of droppedFormElements"
+      [form]="formSectionGroup"
       [formElementName]="el.fieldName"
       [key]="el.key"
       [isChangable]="true"
       cdkDrag
     >
       <div class="custom-placeholder" *cdkDragPlaceholder></div>
-    </app-form-fields>
+    </app-form-element>
   </form>
 </div>

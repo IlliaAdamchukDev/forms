@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { of, Subject, takeUntil, take, Subscription } from 'rxjs';
+import {
+  of,
+  BehaviorSubject,
+  takeUntil,
+  take,
+  Subscription,
+  Observable,
+} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
@@ -16,19 +23,20 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService extends Unsubscriber {
-  private isButton = new Subject<{ button: boolean; disabled: boolean }>();
-  public isButton$ = this.isButton.asObservable();
+  public isButton$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    true
+  );
 
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {
     super();
   }
 
   public login(user: User): Subscription {
-    this.isButton.next({ button: false, disabled: true });
+    this.isButton$.next(false);
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     return this.httpClient
@@ -36,36 +44,24 @@ export class AuthService extends Unsubscriber {
       .pipe(
         takeUntil(this.notifier$),
         catchError((err) => {
-          this.isButton.next({ button: true, disabled: true });
-          this.matDialog
-            .open(DialogComponent, {
-              data: {
-                message: err.error?.message ?? 'Smth went wrong!',
-              },
-            })
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe(() => {
-              this.isButton.next({ button: true, disabled: false });
-            });
+          this.isButton$.next(true);
+          this.matDialog.open(DialogComponent, {
+            data: {
+              message: err.error?.message ?? 'Smth went wrong!',
+            },
+          });
           return of();
         })
       )
       .subscribe(
         (res: { token?: string; expires?: string; message?: string }) => {
-          this.isButton.next({ button: true, disabled: true });
+          this.isButton$.next(true);
           this.setSession(res);
-          this.matDialog
-            .open(DialogComponent, {
-              data: {
-                message: 'You have logged in!',
-              },
-            })
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe(() => {
-              this.isButton.next({ button: true, disabled: false });
-            });
+          this.matDialog.open(DialogComponent, {
+            data: {
+              message: 'You have logged in!',
+            },
+          });
           this.router.navigate(['/forms']);
         }
       );

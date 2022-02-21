@@ -2,20 +2,24 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
-import { takeUntil } from 'rxjs';
-import { IFormElementStyles, IFormElement } from '../../../shared/interfaces/interfaces';
-import { selectFields } from '../../reducers/field/field.selectors';
+import { Subject, takeUntil } from 'rxjs';
+import {
+  IFormElementStyles,
+  IFormElement,
+} from '../../../shared/interfaces/interfaces';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
-import { changeChecked } from '../../reducers/field/field.actions';
+import { startStyles } from '../../../shared/constants/constants';
+import { selectFormElements } from '../../reducers/form/form.selectors';
+import { changeChecked } from '../../reducers/form/form.actions';
 
 @Component({
-  selector: 'app-form-fields',
-  templateUrl: './form-fields.component.html',
-  styleUrls: ['./form-fields.component.scss'],
+  selector: 'app-form-element',
+  templateUrl: './form-element.component.html',
+  styleUrls: ['./form-element.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldsComponent extends Unsubscriber {
+export class FormElementComponent extends Unsubscriber {
   @Input()
   public formElementName: string = '';
   @Input()
@@ -25,20 +29,22 @@ export class FormFieldsComponent extends Unsubscriber {
   @Input()
   public form!: FormGroup;
 
-  public formElementStyles!: IFormElementStyles;
-  public formElements$ = this.store.select(selectFields);
+  public formElements$ = this.store.select(selectFormElements);
+  public formElementStyles$ = new Subject<IFormElementStyles>();
 
   constructor(private store: Store, private matDialog: MatDialog) {
     super();
   }
 
   ngOnInit() {
-    this.formElements$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
-      let el = fields.find((field: IFormElement) => field.id === this.key);
-      if (this.formElementStyles !== el?.styles) {
-        this.formElementStyles = el?.styles ?? this.formElementStyles;
-      }
-    });
+    this.formElements$
+      .pipe(takeUntil(this.notifier$))
+      .subscribe((formElements) => {
+        let el = formElements.find(
+          (formElement: IFormElement) => formElement.id === this.key
+        );
+        this.formElementStyles$.next(el?.styles ?? startStyles);
+      });
   }
 
   public message(): void {

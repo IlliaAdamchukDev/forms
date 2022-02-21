@@ -1,0 +1,57 @@
+<div
+  [formGroup]="form"
+  [ngSwitch]="formElementName"
+  class="element"
+  (click)="changeCheckedId()"
+>
+  <input
+    *ngSwitchCase="'input'"
+    [formControlName]="key"
+    [ngStyle]="formElementStyles$ | async"
+    [required]="(formElementStyles$ | async)?.required ?? false"
+    [placeholder]="(formElementStyles$ | async)?.placeholder ?? '' | cut"
+    type="text"
+    [readOnly]="!isChangable"
+  />
+  <textarea
+    *ngSwitchCase="'textarea'"
+    [class.required]="(formElementStyles$ | async)?.required ?? false"
+    [formControlName]="key"
+    [ngStyle]="formElementStyles$ | async"
+    [required]="(formElementStyles$ | async)?.required ?? false"
+    [placeholder]="(formElementStyles$ | async)?.placeholder ?? '' | cut"
+    cols="30"
+    rows="3"
+    [readOnly]="!isChangable"
+  ></textarea>
+  <button
+    [ngStyle]="formElementStyles$ | async"
+    *ngSwitchCase="'button'"
+    (click)="message()"
+  >
+    Button
+  </button>
+  <div class="checkbox" *ngSwitchCase="'checkbox'">
+    <label>
+      Checkbox
+      <input
+        [formControlName]="key"
+        [required]="(formElementStyles$ | async)?.required ?? false"
+        [ngStyle]="formElementStyles$ | async"
+        type="checkbox"
+        [readOnly]="!isChangable"
+      />
+    </label>
+  </div>
+  <select
+    *ngSwitchCase="'select'"
+    [formControlName]="key"
+    [ngStyle]="formElementStyles$ | async"
+    [required]="(formElementStyles$ | async)?.required ?? false"
+  >
+    <option>Option 1</option>
+  </select>
+  <span
+    [class.required]="(formElementStyles$ | async)?.required ?? false"
+  ></span>
+</div>

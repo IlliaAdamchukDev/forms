@@ -5,11 +5,11 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
-import { validateEmail } from './utils/login-functions'
+import { validateEmail } from './utils/login-functions';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +18,11 @@ import { validateEmail } from './utils/login-functions'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends Unsubscriber {
-  public isButton = { button: true, disabled: false };
   public authForm: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
   });
+  public isButton$!: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -33,25 +33,18 @@ export class LoginComponent extends Unsubscriber {
   }
 
   ngOnInit() {
-    this.authService.isButton$
-      .pipe(takeUntil(this.notifier$))
-      .subscribe((val) => {
-        this.isButton = val;
-        if (this.isButton.disabled) {
-          this.authForm.controls['email'].disable();
-          this.authForm.controls['password'].disable();
-        } else {
-          this.authForm.controls['email'].enable();
-          this.authForm.controls['password'].enable();
-        }
-      });
+    this.isButton$ = this.authService.isButton$.asObservable();
   }
+
   ngDoCheck() {
     this.changeDetectorRef.markForCheck();
   }
 
   public login(): void {
-    if (this.authForm.valid && validateEmail(this.authForm.controls['email'].value)) {
+    if (
+      this.authForm.valid &&
+      validateEmail(this.authForm.controls['email'].value)
+    ) {
       this.authService.login({
         email: this.authForm.controls['email'].value,
         password: this.authForm.controls['password'].value,

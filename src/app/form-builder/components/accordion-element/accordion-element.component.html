@@ -60,7 +60,11 @@
     </div>
     <div
       class="required"
-      *ngIf="formElementName.length && formElementName !== 'form' && formElementName !== 'button'"
+      *ngIf="
+        formElementName.length &&
+        formElementName !== 'form' &&
+        formElementName !== 'button'
+      "
     >
       <label>Choose required: </label>
       <select formControlName="required">

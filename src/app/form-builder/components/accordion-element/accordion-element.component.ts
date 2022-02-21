@@ -6,9 +6,12 @@ import { AccordionDataService } from './accordion.data.service';
 import {
   changeFormStyles,
   changeStyles,
-} from '../../reducers/field/field.actions';
-import { IFormElement, IFormElementsState } from 'src/app/shared/interfaces/interfaces';
-import { selectFields } from '../../reducers/field/field.selectors';
+} from '../../reducers/form/form.actions';
+import {
+  IFormElement,
+  IFormElementsState,
+} from 'src/app/shared/interfaces/interfaces';
+import { selectFormElements } from '../../reducers/form/form.selectors';
 import { createFormGroup } from './accordion-element-functions';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 
@@ -29,7 +32,8 @@ export class AccordionElementComponent extends Unsubscriber {
   public formElementStyles: FormGroup = createFormGroup();
   public formSectionStyles: FormGroup = createFormGroup();
 
-  private formElements$: Observable<IFormElement[]> = this.store.select(selectFields);
+  private formElements$: Observable<IFormElement[]> =
+    this.store.select(selectFormElements);
 
   constructor(
     private store: Store<IFormElementsState>,
@@ -39,11 +43,11 @@ export class AccordionElementComponent extends Unsubscriber {
   }
 
   ngOnInit() {
-    this.formElements$.pipe(takeUntil(this.notifier$)).subscribe((newFormElements) => {
-      if (this.formSectionStyles.value !== newFormElements[0].styles) {
+    this.formElements$
+      .pipe(takeUntil(this.notifier$))
+      .subscribe((newFormElements) => {
         this.formSectionStyles.setValue(newFormElements[0].styles);
-      }
-    });
+      });
     this.accordionDataService.formElementStyles$
       .pipe(takeUntil(this.notifier$))
       .subscribe((styles) => {

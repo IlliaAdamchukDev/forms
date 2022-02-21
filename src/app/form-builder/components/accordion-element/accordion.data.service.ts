@@ -8,8 +8,8 @@ import {
 } from '../../../shared/interfaces/interfaces';
 import {
   selectCheckedId,
-  selectFields,
-} from '../../reducers/field/field.selectors';
+  selectFormElements,
+} from '../../reducers/form/form.selectors';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 import { startStyles } from '../../../shared/constants/constants';
 
@@ -18,22 +18,18 @@ import { startStyles } from '../../../shared/constants/constants';
 })
 export class AccordionDataService extends Unsubscriber {
   public formElements!: IFormElement[];
-  public id!: number;
   public formElementStyles$ = new Subject<IFormElementStyles>();
   public id$: Observable<number> = this.store.select(selectCheckedId);
-  public formElements$: Observable<IFormElement[]> = this.store.select(selectFields);
+  public formElements$: Observable<IFormElement[]> =
+    this.store.select(selectFormElements);
 
   constructor(private store: Store<IFormElementsState>) {
-    super(); 
-  }
-
-  ngOnInit() {
+    super();
     this.formElements$
       .pipe(takeUntil(this.notifier$))
       .subscribe((newFormElements) => (this.formElements = newFormElements));
 
     this.id$.pipe(takeUntil(this.notifier$)).subscribe((id) => {
-      this.id = id;
       let el = this.formElements.find((formElement) => formElement.id === id);
       this.formElementStyles$.next(
         el?.styles ?? JSON.parse(JSON.stringify(startStyles))
