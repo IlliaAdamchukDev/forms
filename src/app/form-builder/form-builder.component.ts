@@ -40,7 +40,7 @@ export class FormBuilderComponent extends Unsubscriber {
   public type$ = this.store.pipe(select(selectType), takeUntil(this.notifier$));
 
   private values!: FormValues;
-  private fields$ = this.store.pipe(select(selectFields));
+  private fields$ = this.store.select(selectFields);
 
   constructor(
     private store: Store<FieldsState>,

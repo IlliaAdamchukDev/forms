@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
@@ -26,7 +26,7 @@ export class FormFieldsComponent extends Unsubscriber {
   public form!: FormGroup;
 
   public styles!: FieldStyles;
-  public fields$ = this.store.pipe(select(selectFields));
+  public fields$ = this.store.select(selectFields);
   public override notifier$ = new Subject();
 
   constructor(private store: Store, private matDialog: MatDialog) {

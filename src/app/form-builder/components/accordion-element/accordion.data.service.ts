@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import {
   FieldStyles,
@@ -20,10 +20,8 @@ export class AccordionDataService extends Unsubscriber {
   public fields!: FormElement[];
   public id!: number;
   public fieldStyles$ = new Subject<FieldStyles>();
-  public id$: Observable<number> = this.store.pipe(select(selectCheckedId));
-  public fields$: Observable<FormElement[]> = this.store.pipe(
-    select(selectFields)
-  );
+  public id$: Observable<number> = this.store.select(selectCheckedId);
+  public fields$: Observable<FormElement[]> = this.store.select(selectFields);
   public override notifier$ = new Subject();
 
   constructor(private store: Store<FieldsState>) {
