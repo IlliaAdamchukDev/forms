@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, takeUntil } from 'rxjs';
-import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
+import { takeUntil } from 'rxjs';
+import { IFormElementStyles, IFormElement } from '../../../shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
@@ -25,7 +25,7 @@ export class FormFieldsComponent extends Unsubscriber {
   @Input()
   public form!: FormGroup;
 
-  public formElementStyles!: FieldStyles;
+  public formElementStyles!: IFormElementStyles;
   public formElements$ = this.store.select(selectFields);
 
   constructor(private store: Store, private matDialog: MatDialog) {
@@ -34,7 +34,7 @@ export class FormFieldsComponent extends Unsubscriber {
 
   ngOnInit() {
     this.formElements$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
-      let el = fields.find((field: FormElement) => field.id === this.key);
+      let el = fields.find((field: IFormElement) => field.id === this.key);
       if (this.formElementStyles !== el?.styles) {
         this.formElementStyles = el?.styles ?? this.formElementStyles;
       }

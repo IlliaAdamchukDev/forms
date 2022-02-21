@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
+import { IFormElementStyles, IFormElement } from '../../../shared/interfaces/interfaces';
 
 export enum fieldActionsType {
   changeType = '[FIELD] change type',
@@ -23,7 +23,7 @@ export const changeChecked = createAction(
 
 export const addField = createAction(
   fieldActionsType.addField,
-  props<FormElement>()
+  props<IFormElement>()
 );
 
 export const deleteField = createAction(
@@ -33,12 +33,12 @@ export const deleteField = createAction(
 
 export const changeStyles = createAction(
   fieldActionsType.changeStyles,
-  props<{ styles: FieldStyles }>()
+  props<{ styles: IFormElementStyles }>()
 );
 
 export const changeFormStyles = createAction(
   fieldActionsType.changeFormStyles,
-  props<{ styles: FieldStyles }>()
+  props<{ styles: IFormElementStyles }>()
 );
 
 export const setStateToInitial = createAction(

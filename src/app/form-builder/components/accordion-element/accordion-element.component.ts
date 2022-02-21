@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
 import {
   changeFormStyles,
   changeStyles,
 } from '../../reducers/field/field.actions';
-import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
+import { IFormElement, IFormElementsState } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './accordion-element-functions';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
@@ -29,10 +29,10 @@ export class AccordionElementComponent extends Unsubscriber {
   public formElementStyles: FormGroup = createFormGroup();
   public formSectionStyles: FormGroup = createFormGroup();
 
-  private formElements$: Observable<FormElement[]> = this.store.select(selectFields);
+  private formElements$: Observable<IFormElement[]> = this.store.select(selectFields);
 
   constructor(
-    private store: Store<FieldsState>,
+    private store: Store<IFormElementsState>,
     private accordionDataService: AccordionDataService
   ) {
     super();

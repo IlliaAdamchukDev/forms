@@ -1,4 +1,4 @@
-export interface FieldStyles {
+export interface IFormElementStyles {
   height: string;
   width: string;
   placeholder: string;
@@ -11,27 +11,27 @@ export interface FieldStyles {
   color: string;
 }
 
-export interface FormElement {
+export interface IFormElement {
   id: number;
-  styles: FieldStyles;
+  styles: IFormElementStyles;
   fieldType: string;
 }
 
-export interface DraggableElement {
+export interface IDraggableElement {
   fieldName: string;
   key: number;
 }
 
-export interface FormValues {
+export interface IFormValues {
   [key: string | number]: string;
 }
 
-export interface FieldsState {
-  fields: FormElement[];
+export interface IFormElementsState {
+  fields: IFormElement[];
   fieldType: string;
   checkedId: number;
 }
 
-export interface FieldFeature {
-  formElement: FieldsState;
+export interface IFormElementFeature {
+  formElement: IFormElementsState;
 }

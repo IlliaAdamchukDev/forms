@@ -4,10 +4,10 @@ import { select, Store } from '@ngrx/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import {
-  DraggableElement,
-  FieldStyles,
-  FormValues,
-  FieldsState,
+  IDraggableElement,
+  IFormElementStyles,
+  IFormValues,
+  IFormElementsState,
 } from '../shared/interfaces/interfaces';
 import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
@@ -26,7 +26,7 @@ import { Unsubscriber } from '../shared/unsubscriber/unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormBuilderComponent extends Unsubscriber {
-  public formSectionStyles!: FieldStyles;
+  public formSectionStyles!: IFormElementStyles;
   public formSectionGroup!: FormGroup;
   //need to fix
   public upGroup = new FormGroup({
@@ -37,14 +37,14 @@ export class FormBuilderComponent extends Unsubscriber {
   });
   //end
   public draggableFormElements = formElementsArr;
-  public droppedFormElements: DraggableElement[] = [];
+  public droppedFormElements: IDraggableElement[] = [];
   public formElementType$ = this.store.pipe(select(selectType), takeUntil(this.notifier$));
 
-  private droppedElementsValues!: FormValues;
+  private droppedElementsValues!: IFormValues;
   private formElements$ = this.store.select(selectFields);
 
   constructor(
-    private store: Store<FieldsState>,
+    private store: Store<IFormElementsState>,
     private authService: AuthService
   ) {
     super(); 
@@ -72,7 +72,7 @@ export class FormBuilderComponent extends Unsubscriber {
     });
   }
 
-  public drop(event: CdkDragDrop<DraggableElement[]>): void {
+  public drop(event: CdkDragDrop<IDraggableElement[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

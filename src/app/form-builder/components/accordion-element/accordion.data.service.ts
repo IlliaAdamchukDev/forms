@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import {
-  FieldStyles,
-  FormElement,
-  FieldsState,
+  IFormElementStyles,
+  IFormElement,
+  IFormElementsState,
 } from '../../../shared/interfaces/interfaces';
 import {
   selectCheckedId,
@@ -17,13 +17,13 @@ import { startStyles } from '../../../shared/constants/constants';
   providedIn: 'root',
 })
 export class AccordionDataService extends Unsubscriber {
-  public formElements!: FormElement[];
+  public formElements!: IFormElement[];
   public id!: number;
-  public formElementStyles$ = new Subject<FieldStyles>();
+  public formElementStyles$ = new Subject<IFormElementStyles>();
   public id$: Observable<number> = this.store.select(selectCheckedId);
-  public formElements$: Observable<FormElement[]> = this.store.select(selectFields);
+  public formElements$: Observable<IFormElement[]> = this.store.select(selectFields);
 
-  constructor(private store: Store<FieldsState>) {
+  constructor(private store: Store<IFormElementsState>) {
     super(); 
   }
 

@@ -1,6 +1,6 @@
-import { FieldStyles, DraggableElement } from '../interfaces/interfaces';
+import { IFormElementStyles, IDraggableElement } from '../interfaces/interfaces';
 
-export const startStyles: FieldStyles = {
+export const startStyles: IFormElementStyles = {
   height: '',
   width: '',
   placeholder: '',
@@ -13,7 +13,7 @@ export const startStyles: FieldStyles = {
   color: '',
 };
 
-export const formElementsArr: DraggableElement[] = [
+export const formElementsArr: IDraggableElement[] = [
   { fieldName: 'input', key: 0 },
   { fieldName: 'textarea', key: 1 },
   { fieldName: 'button', key: 2 },

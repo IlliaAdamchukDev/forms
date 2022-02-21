@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { startStyles } from '../../../shared/constants/constants';
 import {
-  FormElement,
-  FieldsState,
-  FieldStyles,
+  IFormElement,
+  IFormElementsState,
+  IFormElementStyles,
 } from '../../../shared/interfaces/interfaces';
 import {
   changeType,
@@ -17,7 +17,7 @@ import {
 
 export const formElementNode = 'formElement';
 
-export const initialState: FieldsState = {
+export const initialState: IFormElementsState = {
   fields: [
     {
       id: -1,
@@ -33,38 +33,38 @@ export const fieldReducer = createReducer(
   initialState,
   on(
     changeType,
-    (state: FieldsState, data: { fieldType: string }): FieldsState => ({
+    (state: IFormElementsState, data: { fieldType: string }): IFormElementsState => ({
       ...state,
       fieldType: data.fieldType,
     })
   ),
   on(
     changeChecked,
-    (state: FieldsState, data: { id: number }): FieldsState => ({
+    (state: IFormElementsState, data: { id: number }): IFormElementsState => ({
       ...state,
       checkedId: data.id,
     })
   ),
-  on(addField, (state: FieldsState, data: FormElement): FieldsState => {
+  on(addField, (state: IFormElementsState, data: IFormElement): IFormElementsState => {
     let newStateAdd = JSON.parse(JSON.stringify(state));
     newStateAdd.fields.push(data);
     return newStateAdd;
   }),
-  on(deleteField, (state: FieldsState, data: { id: number }): FieldsState => {
+  on(deleteField, (state: IFormElementsState, data: { id: number }): IFormElementsState => {
     let newStateDel = JSON.parse(JSON.stringify(state));
     newStateDel.fields.splice(
-      newStateDel.fields.findIndex((el: FormElement) => el.id === data.id),
+      newStateDel.fields.findIndex((el: IFormElement) => el.id === data.id),
       1
     );
     return newStateDel;
   }),
   on(
     changeStyles,
-    (state: FieldsState, data: { styles: FieldStyles }): FieldsState => {
+    (state: IFormElementsState, data: { styles: IFormElementStyles }): IFormElementsState => {
       let newStateStyles = JSON.parse(JSON.stringify(state));
       newStateStyles.fields[
         newStateStyles.fields.findIndex(
-          (el: FormElement) => el.id === newStateStyles.checkedId
+          (el: IFormElement) => el.id === newStateStyles.checkedId
         )
       ].styles = data.styles;
       return newStateStyles;
@@ -72,7 +72,7 @@ export const fieldReducer = createReducer(
   ),
   on(
     changeFormStyles,
-    (state: FieldsState, data: { styles: FieldStyles }): FieldsState => {
+    (state: IFormElementsState, data: { styles: IFormElementStyles }): IFormElementsState => {
       let newState = JSON.parse(JSON.stringify(state));
       newState.fields[0].styles = data.styles;
       return newState;
