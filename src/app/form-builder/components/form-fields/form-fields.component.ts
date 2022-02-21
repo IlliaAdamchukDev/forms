@@ -6,7 +6,7 @@ import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
-import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from '../../../shared/Unsubscriber/Unsubscriber';
 import { changeChecked } from '../../reducers/field/field.actions';
 
 @Component({
@@ -27,12 +27,10 @@ export class FormFieldsComponent extends Unsubscriber {
 
   public styles!: FieldStyles;
   public fields$ = this.store.pipe(select(selectFields));
+  public override notifier$ = new Subject();
 
   constructor(private store: Store, private matDialog: MatDialog) {
-    super(); 
-  }
-
-  ngOnInit() {
+    super();
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       let el = fields.find((field: FormElement) => field.id === this.key);
       if (this.styles !== el?.styles) {
@@ -56,7 +54,7 @@ export class FormFieldsComponent extends Unsubscriber {
     let message = '';
     message = 'Information:\n';
     for (const key in this.form.value) {
-      message = message + this.form.value[key] + ' ';
+      message = message + this.form.value[key] + '\n';
     }
     message = message + 'Succesfully sended!';
     this.matDialog.open(DialogComponent, {

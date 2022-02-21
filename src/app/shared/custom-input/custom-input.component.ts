@@ -55,7 +55,13 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   constructor(private renderer: Renderer2) {}
 
   public validate(control: AbstractControl): ValidationErrors | null {
-       return control.value?.length ? null : { valid: false };
+    const regexp =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let result = true;
+    if (this.inputType === 'email') {
+      result = regexp.test(control.value);
+    }
+    return control.value?.length && result ? null : { valid: false };
   }
 
   public set value(val: string) {

@@ -10,7 +10,7 @@ import {
 import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './accordion-element-functions';
-import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
 
 @Component({
   selector: 'app-accordion-element',
@@ -28,6 +28,7 @@ export class AccordionElementComponent extends Unsubscriber {
   public panelOpenState = false;
   public fieldStyles: FormGroup = createFormGroup();
   public formStyles: FormGroup = createFormGroup();
+  public override notifier$ = new Subject();
 
   private fields$: Observable<FormElement[]> = this.store.pipe(
     select(selectFields)
@@ -38,10 +39,6 @@ export class AccordionElementComponent extends Unsubscriber {
     private accordionDataService: AccordionDataService
   ) {
     super();
-    
-  }
-
-  ngOnInit() {
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((newFields) => {
       if (this.formStyles.value !== newFields[0].styles) {
         this.formStyles.setValue(newFields[0].styles);

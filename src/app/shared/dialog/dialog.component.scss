@@ -8,9 +8,6 @@
   position: relative;
   width: 50%;
   margin: 0 auto;
-  h1 {
-    word-break: break-word;
-  }
   button {
     bottom: 0;
     right: 0;
@@ -19,7 +16,7 @@
     width: 5em;
     outline: none;
     border: transparent;
-    background-color: transparent;
+    background-color: var(--orangered-color);
     color: var(--white-color);
     transition: 0.8s;
     &:hover {

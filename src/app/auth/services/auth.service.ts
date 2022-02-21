@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
 
 export interface User {
   email: string;
@@ -15,7 +14,8 @@ export interface User {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService extends Unsubscriber {
+export class AuthService {
+  public notifier$ = new Subject();
   private isButton = new Subject<{ button: boolean; disabled: boolean }>();
   public isButton$ = this.isButton.asObservable();
 
@@ -23,8 +23,11 @@ export class AuthService extends Unsubscriber {
     private httpClient: HttpClient,
     private router: Router,
     private matDialog: MatDialog
-  ) {
-    super()
+  ) {}
+
+  ngOnDestroy(): void {
+    this.notifier$.next(false);
+    this.notifier$.complete();
   }
 
   public login(user: User): Subscription {
