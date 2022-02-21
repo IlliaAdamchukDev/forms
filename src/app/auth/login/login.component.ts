@@ -7,8 +7,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
-import { Unsubscriber } from 'src/app/shared/Unsubscriber/Unsubscriber';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
 
 
 @Component({
