@@ -5,13 +5,13 @@ import {
   FieldStyles,
   FormElement,
   FieldsState,
-} from '../../../shared/interfaces/interfaces';
+} from 'src/app/shared/interfaces/interfaces';
 import {
   selectCheckedId,
   selectFields,
-} from '../../reducers/field/field.selectors';
-import { Unsubscriber } from './../../../shared/unsubscriber/unsubscriber';
-import { startStyles } from '../../../shared/constants/constants';
+} from 'src/app/form-builder/reducers/field/field.selectors';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
+import { startStyles } from 'src/app/shared/constants/constants';
 
 @Injectable({
   providedIn: 'root',

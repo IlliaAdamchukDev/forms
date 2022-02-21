@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, takeUntil } from 'rxjs';
-import { AccordionDataService } from './accordion.data.service';
+import { AccordionDataService } from 'src/app/form-builder/components/accordion-element/accordion.data.service';
 import {
   changeFormStyles,
   changeStyles,
 } from '../../reducers/field/field.actions';
 import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
-import { selectFields } from '../../reducers/field/field.selectors';
-import { createFormGroup } from './utils/accordion-element-functions';
-import { Unsubscriber } from './../../../shared/unsubscriber/unsubscriber';
+import { selectFields } from 'src/app/form-builder/reducers/field/field.selectors';
+import { createFormGroup } from 'src/app/form-builder/components/accordion-element/utils/accordion-element-functions';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-accordion-element',

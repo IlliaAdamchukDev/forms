@@ -8,16 +8,16 @@ import {
   FieldStyles,
   FormValues,
   FieldsState,
-} from '../shared/interfaces/interfaces';
-import { selectFields, selectType } from './reducers/field/field.selectors';
+} from 'src/app/shared/interfaces/interfaces';
+import { selectFields, selectType } from 'src/app/form-builder/reducers/field/field.selectors';
 import {
   addField,
   deleteField,
   setStateToInitial,
-} from './reducers/field/field.actions';
-import { AuthService } from '../auth/services/auth.service';
-import { startStyles, fieldsArr } from '../shared/constants/constants';
-import { Unsubscriber } from './../shared/unsubscriber/unsubscriber';
+} from 'src/app/form-builder/reducers/field/field.actions';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { startStyles, fieldsArr } from 'src/app/shared/constants/constants';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-form-builder',

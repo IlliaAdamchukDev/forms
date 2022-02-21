@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { fieldNode } from './field.reducer';
+import { fieldNode } from 'src/app/form-builder/reducers/field/field.reducer';
 import {
   FormElement,
   FieldFeature,
-} from '../../../shared/interfaces/interfaces';
+} from 'src/app/shared/interfaces/interfaces';
 
 export const selectFieldFeature =
   createFeatureSelector<FieldFeature>(fieldNode);

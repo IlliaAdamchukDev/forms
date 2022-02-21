@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select, Action } from '@ngrx/store';
 import { tap, take } from 'rxjs';
-import { FormElement, FieldsState } from '../shared/interfaces/interfaces';
-import { changeChecked, changeType } from './reducers/field/field.actions';
-import { selectFields } from './reducers/field/field.selectors';
+import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
+import { changeChecked, changeType } from 'src/app/form-builder/reducers/field/field.actions';
+import { selectFields } from 'src/app/form-builder/reducers/field/field.selectors';
 
 @Injectable()
 export class FormBuilderEffects {

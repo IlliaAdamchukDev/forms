@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs';
-import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
-import { selectFields } from '../../reducers/field/field.selectors';
-import { DialogComponent } from '../../../shared/dialog/dialog.component';
-import { Unsubscriber } from './../../../shared/unsubscriber/unsubscriber';
-import { changeChecked } from '../../reducers/field/field.actions';
+import { FieldStyles, FormElement } from 'src/app/shared/interfaces/interfaces';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
+import { selectFields } from 'src/app/form-builder/reducers/field/field.selectors';
+import { changeChecked } from 'src/app/form-builder/reducers/field/field.actions';
 
 @Component({
   selector: 'app-form-fields',
