@@ -6,11 +6,11 @@ import {
   IFormElementStyles,
 } from '../../../shared/interfaces/interfaces';
 import {
-  changeType,
-  changeChecked,
+  changeCheckedElementType,
+  changeCheckedElementId,
   addFormElement,
   deleteFormElement,
-  changeStyles,
+  changeFormElementStyles,
   changeFormStyles,
   setStateToInitial,
 } from './form.actions';
@@ -32,7 +32,7 @@ export const initialState: IFormElementsState = {
 export const formElementReducer = createReducer(
   initialState,
   on(
-    changeType,
+    changeCheckedElementType,
     (
       state: IFormElementsState,
       data: { fieldType: string }
@@ -42,7 +42,7 @@ export const formElementReducer = createReducer(
     })
   ),
   on(
-    changeChecked,
+    changeCheckedElementId,
     (state: IFormElementsState, data: { id: number }): IFormElementsState => ({
       ...state,
       checkedId: data.id,
@@ -68,7 +68,7 @@ export const formElementReducer = createReducer(
     }
   ),
   on(
-    changeStyles,
+    changeFormElementStyles,
     (
       state: IFormElementsState,
       data: { styles: IFormElementStyles }

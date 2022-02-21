@@ -5,22 +5,22 @@ import {
 } from '../../../shared/interfaces/interfaces';
 
 export enum formElementsActionsType {
-  changeType = '[FIELD] change type',
-  changeChecked = '[FIELD] change checked id',
+  changeCheckedElementType = '[FIELD] change type',
+  changeCheckedElementId = '[FIELD] change checked id',
   addFormElement = '[FIELD] add field',
   deleteFormElement = '[FIELD] delete field',
-  changeStyles = '[FIELD] change styles',
+  changeFormElementStyles = '[FIELD] change styles',
   changeFormStyles = '[FIELD] change form styles',
   setStateToInitial = '[FIELD] set state to initial',
 }
 
-export const changeType = createAction(
-  formElementsActionsType.changeType,
+export const changeCheckedElementType = createAction(
+  formElementsActionsType.changeCheckedElementType,
   props<{ fieldType: string }>()
 );
 
-export const changeChecked = createAction(
-  formElementsActionsType.changeChecked,
+export const changeCheckedElementId = createAction(
+  formElementsActionsType.changeCheckedElementId,
   props<{ id: number }>()
 );
 
@@ -34,8 +34,8 @@ export const deleteFormElement = createAction(
   props<{ id: number }>()
 );
 
-export const changeStyles = createAction(
-  formElementsActionsType.changeStyles,
+export const changeFormElementStyles = createAction(
+  formElementsActionsType.changeFormElementStyles,
   props<{ styles: IFormElementStyles }>()
 );
 

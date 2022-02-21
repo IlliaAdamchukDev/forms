@@ -6,7 +6,10 @@ import {
   IFormElement,
   IFormElementsState,
 } from '../shared/interfaces/interfaces';
-import { changeChecked, changeType } from './reducers/form/form.actions';
+import {
+  changeCheckedElementId,
+  changeCheckedElementType,
+} from './reducers/form/form.actions';
 import { selectFormElements } from './reducers/form/form.selectors';
 
 @Injectable()
@@ -17,13 +20,19 @@ export class FormBuilderEffects {
   ) {}
   changedId$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(changeChecked),
-      switchMap(payload => this.store.select(selectFormElements).pipe(
-        map((formElements : IFormElement[]) => { return {payload,formElements} })
-      )),
+      ofType(changeCheckedElementId),
+      switchMap((payload) =>
+        this.store.select(selectFormElements).pipe(
+          map((formElements: IFormElement[]) => {
+            return { payload, formElements };
+          })
+        )
+      ),
       map((data): Action => {
-        let fieldType = data.formElements.find((el) => el.id === data.payload.id)?.fieldType;
-        return changeType({ fieldType: fieldType ?? '' });
+        let fieldType = data.formElements.find(
+          (el) => el.id === data.payload.id
+        )?.fieldType;
+        return changeCheckedElementType({ fieldType: fieldType ?? '' });
       })
     )
   );

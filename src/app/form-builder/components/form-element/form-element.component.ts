@@ -11,7 +11,7 @@ import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 import { startStyles } from '../../../shared/constants/constants';
 import { selectFormElements } from '../../reducers/form/form.selectors';
-import { changeChecked } from '../../reducers/form/form.actions';
+import { changeCheckedElementId } from '../../reducers/form/form.actions';
 
 @Component({
   selector: 'app-form-element',
@@ -73,6 +73,6 @@ export class FormElementComponent extends Unsubscriber {
   }
 
   public changeCheckedId(): void {
-    this.store.dispatch(changeChecked({ id: this.key }));
+    this.store.dispatch(changeCheckedElementId({ id: this.key }));
   }
 }

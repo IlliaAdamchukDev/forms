@@ -5,7 +5,7 @@ import { Observable, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
 import {
   changeFormStyles,
-  changeStyles,
+  changeFormElementStyles,
 } from '../../reducers/form/form.actions';
 import {
   IFormElement,
@@ -58,7 +58,7 @@ export class AccordionElementComponent extends Unsubscriber {
   public sendStyles(): void {
     if (this.formElementName !== 'form') {
       this.store.dispatch(
-        changeStyles({
+        changeFormElementStyles({
           styles: this.formElementStyles.value,
         })
       );
