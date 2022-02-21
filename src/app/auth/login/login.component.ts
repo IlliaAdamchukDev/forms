@@ -18,7 +18,6 @@ import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends Unsubscriber {
-  public override notifier$ = new Subject();
   public isButton = { button: true, disabled: false };
   public auth: FormGroup = new FormGroup({
     email: new FormControl(),

@@ -28,7 +28,6 @@ export class AccordionElementComponent extends Unsubscriber {
   public panelOpenState = false;
   public fieldStyles: FormGroup = createFormGroup();
   public formStyles: FormGroup = createFormGroup();
-  public override notifier$ = new Subject();
 
   private fields$: Observable<FormElement[]> = this.store.pipe(
     select(selectFields)

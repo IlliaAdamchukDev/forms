@@ -36,7 +36,6 @@ export class FormBuilderComponent extends Unsubscriber {
   });
   public fields = fieldsArr;
   public form: DraggableElement[] = [];
-  public override notifier$ = new Subject();
   public type$ = this.store.pipe(select(selectType), takeUntil(this.notifier$));
 
   private values!: FormValues;

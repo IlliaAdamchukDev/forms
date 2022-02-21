@@ -27,7 +27,6 @@ export class FormFieldsComponent extends Unsubscriber {
 
   public styles!: FieldStyles;
   public fields$ = this.store.select(selectFields);
-  public override notifier$ = new Subject();
 
   constructor(private store: Store, private matDialog: MatDialog) {
     super();
