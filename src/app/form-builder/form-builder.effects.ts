@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select, Action } from '@ngrx/store';
-import { map, take } from 'rxjs';
+import { map, take, switchMap } from 'rxjs';
 import {
   IFormElement,
   IFormElementsState,
@@ -18,14 +18,11 @@ export class FormBuilderEffects {
   changedId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(changeChecked),
+      switchMap(payload => this.store.select(selectFormElements).pipe(
+        map((formElements : IFormElement[]) => { return {payload,formElements} })
+      )),
       map((data): Action => {
-        let fields!: IFormElement[];
-        this.store
-          .pipe(select(selectFormElements), take(1))
-          .subscribe((val) => {
-            fields = val;
-          });
-        let fieldType = fields.find((el) => el.id === data.id)?.fieldType;
+        let fieldType = data.formElements.find((el) => el.id === data.payload.id)?.fieldType;
         return changeType({ fieldType: fieldType ?? '' });
       })
     )
