@@ -9,7 +9,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
-
+import { validateEmail } from './utils/login-functions'
 
 @Component({
   selector: 'app-login',
@@ -51,7 +51,7 @@ export class LoginComponent extends Unsubscriber {
   }
 
   public login(): void {
-    if (this.auth.valid) {
+    if (this.auth.valid && validateEmail(this.auth.controls['email'].value)) {
       this.authService.login({
         email: this.auth.controls['email'].value,
         password: this.auth.controls['password'].value,
