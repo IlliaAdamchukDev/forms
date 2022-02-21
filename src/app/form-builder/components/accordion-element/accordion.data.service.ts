@@ -27,7 +27,10 @@ export class AccordionDataService extends Unsubscriber {
   public override notifier$ = new Subject();
 
   constructor(private store: Store<FieldsState>) {
-    super();
+    super(); 
+  }
+
+  ngOnInit() {
     this.fields$
       .pipe(takeUntil(this.notifier$))
       .subscribe((newFields) => (this.fields = newFields));

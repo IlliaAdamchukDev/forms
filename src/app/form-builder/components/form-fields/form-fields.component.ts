@@ -31,6 +31,9 @@ export class FormFieldsComponent extends Unsubscriber {
 
   constructor(private store: Store, private matDialog: MatDialog) {
     super();
+  }
+
+  ngOnInit() {
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       let el = fields.find((field: FormElement) => field.id === this.key);
       if (this.styles !== el?.styles) {

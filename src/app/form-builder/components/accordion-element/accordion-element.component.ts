@@ -39,6 +39,9 @@ export class AccordionElementComponent extends Unsubscriber {
     private accordionDataService: AccordionDataService
   ) {
     super();
+  }
+
+  ngOnInit() {
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((newFields) => {
       if (this.formStyles.value !== newFields[0].styles) {
         this.formStyles.setValue(newFields[0].styles);

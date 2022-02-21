@@ -31,6 +31,9 @@ export class LoginComponent extends Unsubscriber {
     private changeDetectorRef: ChangeDetectorRef
   ) {
     super();
+  }
+
+  ngOnInit() {
     this.authService.isButton$
       .pipe(takeUntil(this.notifier$))
       .subscribe((val) => {
@@ -44,7 +47,6 @@ export class LoginComponent extends Unsubscriber {
         }
       });
   }
-
   ngDoCheck() {
     this.changeDetectorRef.markForCheck();
   }

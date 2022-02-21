@@ -46,7 +46,10 @@ export class FormBuilderComponent extends Unsubscriber {
     private store: Store<FieldsState>,
     private authService: AuthService
   ) {
-    super();
+    super(); 
+  }
+
+  ngOnInit() {
     this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       if (this.styles !== fields[0]?.styles) {
         this.styles = fields[0]?.styles ?? this.styles;
