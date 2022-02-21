@@ -1,4 +1,4 @@
-import { FieldStyles, DraggableElement } from 'src/app/shared/interfaces/interfaces';
+import { FieldStyles, DraggableElement } from '../interfaces/interfaces';
 
 export const startStyles: FieldStyles = {
   height: '',
