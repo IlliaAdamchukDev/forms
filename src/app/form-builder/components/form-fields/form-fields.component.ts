@@ -17,7 +17,7 @@ import { changeChecked } from '../../reducers/field/field.actions';
 })
 export class FormFieldsComponent extends Unsubscriber {
   @Input()
-  public field: string = '';
+  public formElementName: string = '';
   @Input()
   public isChangable: boolean = false;
   @Input()
@@ -25,18 +25,18 @@ export class FormFieldsComponent extends Unsubscriber {
   @Input()
   public form!: FormGroup;
 
-  public styles!: FieldStyles;
-  public fields$ = this.store.select(selectFields);
+  public formElementStyles!: FieldStyles;
+  public formElements$ = this.store.select(selectFields);
 
   constructor(private store: Store, private matDialog: MatDialog) {
     super();
   }
 
   ngOnInit() {
-    this.fields$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
+    this.formElements$.pipe(takeUntil(this.notifier$)).subscribe((fields) => {
       let el = fields.find((field: FormElement) => field.id === this.key);
-      if (this.styles !== el?.styles) {
-        this.styles = el?.styles ?? this.styles;
+      if (this.formElementStyles !== el?.styles) {
+        this.formElementStyles = el?.styles ?? this.formElementStyles;
       }
     });
   }

@@ -17,25 +17,25 @@ import { startStyles } from '../../../shared/constants/constants';
   providedIn: 'root',
 })
 export class AccordionDataService extends Unsubscriber {
-  public fields!: FormElement[];
+  public formElements!: FormElement[];
   public id!: number;
-  public fieldStyles$ = new Subject<FieldStyles>();
+  public formElementStyles$ = new Subject<FieldStyles>();
   public id$: Observable<number> = this.store.select(selectCheckedId);
-  public fields$: Observable<FormElement[]> = this.store.select(selectFields);
+  public formElements$: Observable<FormElement[]> = this.store.select(selectFields);
 
   constructor(private store: Store<FieldsState>) {
     super(); 
   }
 
   ngOnInit() {
-    this.fields$
+    this.formElements$
       .pipe(takeUntil(this.notifier$))
-      .subscribe((newFields) => (this.fields = newFields));
+      .subscribe((newFormElements) => (this.formElements = newFormElements));
+
     this.id$.pipe(takeUntil(this.notifier$)).subscribe((id) => {
       this.id = id;
-
-      let el = this.fields.find((field) => field.id === id);
-      this.fieldStyles$.next(
+      let el = this.formElements.find((formElement) => formElement.id === id);
+      this.formElementStyles$.next(
         el?.styles ?? JSON.parse(JSON.stringify(startStyles))
       );
     });

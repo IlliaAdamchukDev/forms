@@ -33,5 +33,5 @@ export interface FieldsState {
 }
 
 export interface FieldFeature {
-  field: FieldsState;
+  formElement: FieldsState;
 }

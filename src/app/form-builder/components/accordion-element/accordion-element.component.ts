@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
 import {
@@ -23,15 +23,13 @@ export class AccordionElementComponent extends Unsubscriber {
   @Input()
   public title: string = '';
   @Input()
-  public fieldName: string = '';
+  public formElementName: string = '';
 
   public panelOpenState = false;
-  public fieldStyles: FormGroup = createFormGroup();
-  public formStyles: FormGroup = createFormGroup();
+  public formElementStyles: FormGroup = createFormGroup();
+  public formSectionStyles: FormGroup = createFormGroup();
 
-  private fields$: Observable<FormElement[]> = this.store.pipe(
-    select(selectFields)
-  );
+  private formElements$: Observable<FormElement[]> = this.store.select(selectFields);
 
   constructor(
     private store: Store<FieldsState>,
@@ -41,23 +39,23 @@ export class AccordionElementComponent extends Unsubscriber {
   }
 
   ngOnInit() {
-    this.fields$.pipe(takeUntil(this.notifier$)).subscribe((newFields) => {
-      if (this.formStyles.value !== newFields[0].styles) {
-        this.formStyles.setValue(newFields[0].styles);
+    this.formElements$.pipe(takeUntil(this.notifier$)).subscribe((newFormElements) => {
+      if (this.formSectionStyles.value !== newFormElements[0].styles) {
+        this.formSectionStyles.setValue(newFormElements[0].styles);
       }
     });
-    this.accordionDataService.fieldStyles$
+    this.accordionDataService.formElementStyles$
       .pipe(takeUntil(this.notifier$))
       .subscribe((styles) => {
-        this.fieldStyles.setValue(styles);
+        this.formElementStyles.setValue(styles);
       });
   }
 
   public sendStyles(): void {
-    if (this.fieldName !== 'form') {
+    if (this.formElementName !== 'form') {
       this.store.dispatch(
         changeStyles({
-          styles: this.fieldStyles.value,
+          styles: this.formElementStyles.value,
         })
       );
       return;
@@ -65,7 +63,7 @@ export class AccordionElementComponent extends Unsubscriber {
 
     this.store.dispatch(
       changeFormStyles({
-        styles: this.formStyles.value,
+        styles: this.formSectionStyles.value,
       })
     );
   }

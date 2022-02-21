@@ -7,27 +7,26 @@
     <mat-accordion>
       <app-accordion-element
         [title]="'Form'"
-        [fieldName]="'form'"
+        [formElementName]="'form'"
       ></app-accordion-element>
       <app-accordion-element
         [title]="'Element'"
-        [fieldName]="type$ | async | notNull"
+        [formElementName]="formElementType$ | async | notNull"
       ></app-accordion-element>
     </mat-accordion>
   </div>
   <div
     cdkDropList
     #fieldsList="cdkDropList"
-    [cdkDropListData]="fields"
+    [cdkDropListData]="draggableFormElements"
     [cdkDropListConnectedTo]="[formList]"
     class="fields"
     (cdkDropListDropped)="drop($event)"
     cdkDropListOrientation="horizontal"
   >
-    <app-form-fields
-      [form]="upGroup"
-      *ngFor="let el of fields"
-      [field]="el.fieldName"
+    <app-form-fields *ngFor="let el of draggableFormElements"
+      [form]="upGroup"    
+      [formElementName]="el.fieldName"
       [key]="el.key"
       [isChangable]="false"
       cdkDrag
@@ -36,18 +35,17 @@
     </app-form-fields>
   </div>
   <form
-    [ngStyle]="styles"
+    [ngStyle]="formSectionStyles"
     cdkDropList
     #formList="cdkDropList"
-    [cdkDropListData]="form"
+    [cdkDropListData]="droppedFormElements"
     [cdkDropListConnectedTo]="[fieldsList]"
     class="form-section silver-border"
     (cdkDropListDropped)="drop($event)"
   >
-    <app-form-fields
-      [form]="group"
-      *ngFor="let el of form"
-      [field]="el.fieldName"
+    <app-form-fields *ngFor="let el of droppedFormElements"
+      [form]="formSectionGroup"    
+      [formElementName]="el.fieldName"
       [key]="el.key"
       [isChangable]="true"
       cdkDrag

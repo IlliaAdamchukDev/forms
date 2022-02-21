@@ -15,7 +15,7 @@ import {
   setStateToInitial,
 } from './field.actions';
 
-export const fieldNode = 'field';
+export const formElementNode = 'formElement';
 
 export const initialState: FieldsState = {
   fields: [

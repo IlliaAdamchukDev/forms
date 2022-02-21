@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
@@ -19,7 +19,7 @@ import { validateEmail } from './utils/login-functions'
 })
 export class LoginComponent extends Unsubscriber {
   public isButton = { button: true, disabled: false };
-  public auth: FormGroup = new FormGroup({
+  public authForm: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
   });
@@ -38,11 +38,11 @@ export class LoginComponent extends Unsubscriber {
       .subscribe((val) => {
         this.isButton = val;
         if (this.isButton.disabled) {
-          this.auth.controls['email'].disable();
-          this.auth.controls['password'].disable();
+          this.authForm.controls['email'].disable();
+          this.authForm.controls['password'].disable();
         } else {
-          this.auth.controls['email'].enable();
-          this.auth.controls['password'].enable();
+          this.authForm.controls['email'].enable();
+          this.authForm.controls['password'].enable();
         }
       });
   }
@@ -51,10 +51,10 @@ export class LoginComponent extends Unsubscriber {
   }
 
   public login(): void {
-    if (this.auth.valid && validateEmail(this.auth.controls['email'].value)) {
+    if (this.authForm.valid && validateEmail(this.authForm.controls['email'].value)) {
       this.authService.login({
-        email: this.auth.controls['email'].value,
-        password: this.auth.controls['password'].value,
+        email: this.authForm.controls['email'].value,
+        password: this.authForm.controls['password'].value,
       });
       return;
     }

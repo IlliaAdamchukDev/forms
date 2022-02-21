@@ -13,7 +13,7 @@ export const startStyles: FieldStyles = {
   color: '',
 };
 
-export const fieldsArr: DraggableElement[] = [
+export const formElementsArr: DraggableElement[] = [
   { fieldName: 'input', key: 0 },
   { fieldName: 'textarea', key: 1 },
   { fieldName: 'button', key: 2 },

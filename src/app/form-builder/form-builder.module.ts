@@ -12,7 +12,7 @@ import { AccordionElementComponent } from './components/accordion-element/accord
 import { reducers } from './reducers';
 import { FormBuilderEffects } from './form-builder.effects';
 import { FormsBuilderRoutingModule } from './form-builder-routing.module';
-import { fieldNode } from './reducers/field/field.reducer';
+import { formElementNode } from './reducers/field/field.reducer';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { fieldNode } from './reducers/field/field.reducer';
     ReactiveFormsModule,
     SharedModule,
     EffectsModule.forFeature([FormBuilderEffects]),
-    StoreModule.forFeature(fieldNode, reducers),
+    StoreModule.forFeature(formElementNode, reducers),
     FormsBuilderRoutingModule,
   ],
 })
