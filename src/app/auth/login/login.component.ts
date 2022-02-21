@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { Unsubscriber } from './../../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
 import { validateEmail } from './utils/login-functions';
 
 

@@ -10,7 +10,7 @@ import {
 import { FormElement, FieldsState } from 'src/app/shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { createFormGroup } from './utils/accordion-element-functions';
-import { Unsubscriber } from './../../../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-accordion-element',

@@ -17,7 +17,7 @@ import {
 } from './reducers/field/field.actions';
 import { AuthService } from '../auth/services/auth.service';
 import { startStyles, fieldsArr } from '../shared/constants/constants';
-import { Unsubscriber } from './../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from '../shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-form-builder',
