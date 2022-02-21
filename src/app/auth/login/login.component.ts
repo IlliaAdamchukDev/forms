@@ -8,8 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
-import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
 import { validateEmail } from 'src/app/auth/login/utils/login-functions';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
 
 @Component({
   selector: 'app-login',
