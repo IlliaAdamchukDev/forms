@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { select, Store } from '@ngrx/store';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs';
 import {
   DraggableElement,
   FieldStyles,
   FormValues,
   FieldsState,
 } from '../shared/interfaces/interfaces';
+import { Subject, takeUntil } from 'rxjs';
 import { selectFields, selectType } from './reducers/field/field.selectors';
 import {
   addField,
   deleteField,
   setStateToInitial,
 } from './reducers/field/field.actions';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
 import { startStyles, fieldsArr } from '../shared/constants/constants';
 import { Unsubscriber } from '../shared/unsubscriber/unsubscriber';

@@ -3,12 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { takeUntil } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
+import { FormGroup, FormControl } from '@angular/forms';
+import { takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
 import { validateEmail } from './utils/login-functions';
 
 

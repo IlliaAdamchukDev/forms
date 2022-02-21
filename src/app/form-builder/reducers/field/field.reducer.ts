@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { startStyles } from '../../../shared/constants/constants';
+import { startStyles } from 'src/app/shared/constants/constants';
 import {
   FormElement,
   FieldsState,
   FieldStyles,
-} from '../../../shared/interfaces/interfaces';
+} from 'src/app/shared/interfaces/interfaces';
 import {
   changeType,
   changeChecked,
