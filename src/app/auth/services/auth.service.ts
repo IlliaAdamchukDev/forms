@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { of, Subject, takeUntil, take, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { Unsubscriber } from '../../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from './../../shared/unsubscriber/unsubscriber';
 
 export interface User {
   email: string;

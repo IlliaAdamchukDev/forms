@@ -10,7 +10,7 @@ import {
   selectCheckedId,
   selectFields,
 } from '../../reducers/field/field.selectors';
-import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from './../../../shared/unsubscriber/unsubscriber';
 import { startStyles } from '../../../shared/constants/constants';
 
 @Injectable({

@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs';
 import { FieldStyles, FormElement } from '../../../shared/interfaces/interfaces';
 import { selectFields } from '../../reducers/field/field.selectors';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
-import { Unsubscriber } from '../../../shared/unsubscriber/unsubscriber';
+import { Unsubscriber } from './../../../shared/unsubscriber/unsubscriber';
 import { changeChecked } from '../../reducers/field/field.actions';
 
 @Component({
