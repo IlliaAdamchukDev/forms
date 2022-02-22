@@ -12,7 +12,7 @@ export class FormsGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.httpClient.get<{ message: string }>('/api/forms').pipe(
-      map((data) => {
+      map((data: { message: string }): boolean => {
         if (data.message !== 'Valid') {
           this.router.navigate(['/']);
         }

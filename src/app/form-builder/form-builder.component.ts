@@ -13,7 +13,7 @@ import { selectFormElements, selectType } from './reducers/form/form.selectors';
 import {
   addFormElement,
   deleteFormElement,
-  setStateToInitial,
+  setStoreStateToInitial,
 } from './reducers/form/form.actions';
 import { AuthService } from '../auth/services/auth.service';
 import { startStyles, formElementsArr } from '../shared/constants/constants';
@@ -106,6 +106,6 @@ export class FormBuilderComponent extends Unsubscriber {
 
   public logout(): void {
     this.authService.logout();
-    this.store.dispatch(setStateToInitial());
+    this.store.dispatch(setStoreStateToInitial());
   }
 }

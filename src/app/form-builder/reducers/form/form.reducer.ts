@@ -11,8 +11,8 @@ import {
   addFormElement,
   deleteFormElement,
   changeFormElementStyles,
-  changeFormStyles,
-  setStateToInitial,
+  changeFormSectionStyles,
+  setStoreStateToInitial,
 } from './form.actions';
 
 export const formElementNode = 'formElement';
@@ -83,7 +83,7 @@ export const formElementReducer = createReducer(
     }
   ),
   on(
-    changeFormStyles,
+    changeFormSectionStyles,
     (
       state: IFormElementsState,
       data: { styles: IFormElementStyles }
@@ -93,5 +93,5 @@ export const formElementReducer = createReducer(
       return newState;
     }
   ),
-  on(setStateToInitial, () => ({ ...initialState }))
+  on(setStoreStateToInitial, () => ({ ...initialState }))
 );

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, takeUntil } from 'rxjs';
 import { AccordionDataService } from './accordion.data.service';
 import {
-  changeFormStyles,
+  changeFormSectionStyles,
   changeFormElementStyles,
 } from '../../reducers/form/form.actions';
 import {
@@ -66,7 +66,7 @@ export class AccordionElementComponent extends Unsubscriber {
     }
 
     this.store.dispatch(
-      changeFormStyles({
+      changeFormSectionStyles({
         styles: this.formSectionStyles.value,
       })
     );

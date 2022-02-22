@@ -10,8 +10,8 @@ export enum formElementsActionsType {
   addFormElement = '[FIELD] add field',
   deleteFormElement = '[FIELD] delete field',
   changeFormElementStyles = '[FIELD] change styles',
-  changeFormStyles = '[FIELD] change form styles',
-  setStateToInitial = '[FIELD] set state to initial',
+  changeFormSectionStyles = '[FIELD] change form styles',
+  setStoreStateToInitial = '[FIELD] set state to initial',
 }
 
 export const changeCheckedElementType = createAction(
@@ -39,11 +39,11 @@ export const changeFormElementStyles = createAction(
   props<{ styles: IFormElementStyles }>()
 );
 
-export const changeFormStyles = createAction(
-  formElementsActionsType.changeFormStyles,
+export const changeFormSectionStyles = createAction(
+  formElementsActionsType.changeFormSectionStyles,
   props<{ styles: IFormElementStyles }>()
 );
 
-export const setStateToInitial = createAction(
-  formElementsActionsType.setStateToInitial
+export const setStoreStateToInitial = createAction(
+  formElementsActionsType.setStoreStateToInitial
 );

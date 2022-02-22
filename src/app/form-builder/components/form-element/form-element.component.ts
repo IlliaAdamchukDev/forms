@@ -40,10 +40,10 @@ export class FormElementComponent extends Unsubscriber {
     this.formElements$
       .pipe(takeUntil(this.notifier$))
       .subscribe((formElements) => {
-        let el = formElements.find(
+        let element = formElements.find(
           (formElement: IFormElement) => formElement.id === this.key
         );
-        this.formElementStyles$.next(el?.styles ?? startStyles);
+        this.formElementStyles$.next(element?.styles ?? startStyles);
       });
   }
 
