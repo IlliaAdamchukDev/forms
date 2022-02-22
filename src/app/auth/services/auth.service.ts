@@ -2,14 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  of,
-  BehaviorSubject,
-  takeUntil,
-  take,
-  Subscription,
-  Observable,
-} from 'rxjs';
+import { of, BehaviorSubject, takeUntil, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { Unsubscriber } from 'src/app/shared/unsubscriber/unsubscriber';
@@ -23,8 +16,8 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService extends Unsubscriber {
-  public isButton$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    true
+  public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
   );
 
   constructor(
@@ -36,7 +29,7 @@ export class AuthService extends Unsubscriber {
   }
 
   public login(user: User): Subscription {
-    this.isButton$.next(false);
+    this.isLoading$.next(true);
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     return this.httpClient
@@ -44,7 +37,7 @@ export class AuthService extends Unsubscriber {
       .pipe(
         takeUntil(this.notifier$),
         catchError((err) => {
-          this.isButton$.next(true);
+          this.isLoading$.next(false);
           this.matDialog.open(DialogComponent, {
             data: {
               message: err.error?.message ?? 'Smth went wrong!',
@@ -55,7 +48,7 @@ export class AuthService extends Unsubscriber {
       )
       .subscribe(
         (res: { token?: string; expires?: string; message?: string }) => {
-          this.isButton$.next(true);
+          this.isLoading$.next(false);
           this.setSession(res);
           this.matDialog.open(DialogComponent, {
             data: {

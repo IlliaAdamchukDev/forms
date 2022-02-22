@@ -12,7 +12,7 @@
       formControlName="password"
     ></app-custom-input>
     <button
-      *ngIf="isButton$ | async; else loaderGIF"
+      *ngIf="!(isLoading$ | async); else loaderGIF"
       (click)="login()"
       class="hover-scale"
     >

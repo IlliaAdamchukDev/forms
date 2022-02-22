@@ -22,22 +22,14 @@ export class LoginComponent extends Unsubscriber {
     email: new FormControl(),
     password: new FormControl(),
   });
-  public isButton$!: Observable<boolean>;
+  public isLoading$!: Observable<boolean>;
 
-  constructor(
-    private authService: AuthService,
-    private matDialog: MatDialog,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor(private authService: AuthService, private matDialog: MatDialog) {
     super();
   }
 
   ngOnInit() {
-    this.isButton$ = this.authService.isButton$.asObservable();
-  }
-
-  ngDoCheck() {
-    this.changeDetectorRef.markForCheck();
+    this.isLoading$ = this.authService.isLoading$.asObservable();
   }
 
   public login(): void {
