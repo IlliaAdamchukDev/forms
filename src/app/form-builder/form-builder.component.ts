@@ -28,14 +28,12 @@ import { Unsubscriber } from '../shared/unsubscriber/unsubscriber';
 export class FormBuilderComponent extends Unsubscriber {
   public formSectionStyles!: IFormElementStyles;
   public formSectionGroup = new FormGroup({});
-  //need to fix
   public upGroup = new FormGroup({
     0: new FormControl(),
     1: new FormControl(),
     3: new FormControl(),
     4: new FormControl(),
   });
-  //end
   public draggableFormElements = formElementsArr;
   public droppedFormElements: IDraggableElement[] = [];
   public formElementType$ = this.store.pipe(
@@ -80,6 +78,9 @@ export class FormBuilderComponent extends Unsubscriber {
           id: this.droppedFormElements[event.previousIndex].key,
         })
       );
+      this.formSectionGroup.removeControl(
+        this.droppedFormElements[event.previousIndex].key.toString()
+      );
       this.droppedFormElements.splice(event.previousIndex, 1);
       return;
     }
@@ -105,6 +106,7 @@ export class FormBuilderComponent extends Unsubscriber {
   }
 
   public logout(): void {
+    this.formSectionGroup = new FormGroup({});
     this.authService.logout();
     this.store.dispatch(setStoreStateToInitial());
   }
