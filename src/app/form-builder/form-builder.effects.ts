@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store, select, Action } from '@ngrx/store';
-import { map, take, switchMap } from 'rxjs';
+import { Store, Action } from '@ngrx/store';
+import { map, switchMap } from 'rxjs';
 import {
   IFormElement,
   IFormElementsState,
