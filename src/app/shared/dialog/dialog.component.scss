@@ -1,0 +1,30 @@
+.pop-up {
+  min-height: 4rem;
+  background-color: var(--orangered-color);
+  color: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  button {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    height: 2.5em;
+    width: 5em;
+    outline: none;
+    border: transparent;
+    background-color: var(--orangered-color);
+    color: var(--white-color);
+    transition: 0.8s;
+    &:hover {
+      cursor: pointer;
+      transition: 0.8s;
+      background-color: var(--white-color);
+      color: black;
+      border: solid var(--orangered-color) 1px;
+    }
+  }
+}

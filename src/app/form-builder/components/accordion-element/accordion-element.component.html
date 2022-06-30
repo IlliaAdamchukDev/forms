@@ -1,0 +1,79 @@
+<mat-expansion-panel
+  class="accordion-element-styles"
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title> {{ title }} styles </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form
+    class="form-styles"
+    [formGroup]="title === 'Element' ? formElementStyles : formSectionStyles"
+  >
+    <div class="height" *ngIf="formElementName.length">
+      <label>Enter height: </label>
+      <input type="text" formControlName="height" />
+    </div>
+    <div class="width" *ngIf="formElementName.length">
+      <label>Enter width: </label>
+      <input type="text" formControlName="width" />
+    </div>
+    <div
+      class="placeholder"
+      *ngIf="formElementName === 'input' || formElementName === 'textarea'"
+    >
+      <label>Enter placeholder: </label>
+      <input type="text" formControlName="placeholder" />
+    </div>
+    <div class="font-size" *ngIf="formElementName === 'input'">
+      <label>Enter font-size: </label>
+      <input type="text" formControlName="font-size" />
+    </div>
+    <div class="font-weight" *ngIf="formElementName === 'select'">
+      <label>Enter font-weight: </label>
+      <input type="text" formControlName="font-weight" />
+    </div>
+    <div class="color" *ngIf="formElementName === 'input'">
+      <label>Choose text color: </label>
+      <input type="color" formControlName="color" />
+    </div>
+    <div class="border-width" *ngIf="formElementName.length">
+      <label>Enter border width: </label>
+      <input type="text" formControlName="border-width" />
+    </div>
+    <div class="border-color" *ngIf="formElementName.length">
+      <label>Choose border color: </label>
+      <input type="color" formControlName="border-color" />
+    </div>
+
+    <div class="border-style" *ngIf="formElementName.length">
+      <label>Choose border style: </label>
+      <select formControlName="border-style">
+        <option>solid</option>
+        <option>dashed</option>
+        <option>double</option>
+        <option>groove</option>
+        <option>ridge</option>
+        <option>hidden</option>
+        <option>dotted</option>
+      </select>
+    </div>
+    <div
+      class="required"
+      *ngIf="
+        formElementName.length &&
+        formElementName !== 'form' &&
+        formElementName !== 'button'
+      "
+    >
+      <label>Choose required: </label>
+      <select formControlName="required">
+        <option>unrequired</option>
+        <option>required</option>
+      </select>
+    </div>
+    <div class="add" *ngIf="formElementName.length">
+      <button class="hover-scale" (click)="sendStyles()">Change styles</button>
+    </div>
+  </form>
+</mat-expansion-panel>

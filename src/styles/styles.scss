@@ -1,0 +1,27 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  margin: 0;
+  font-size: 1vw;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  .mat-dialog-container {
+    position: absolute;
+    background-color: transparent;
+    padding: 0;
+    top: 0;
+    left: 0;
+  }
+}
+
+.silver-border {
+  border: solid var(--silver-color) 1px;
+}
+
+.hover-scale {
+  transition: 0.3s linear;
+  &:hover {
+    cursor: pointer;
+    transition: 0.5s ease;
+    transform: scale(1.1);
+  }
+}

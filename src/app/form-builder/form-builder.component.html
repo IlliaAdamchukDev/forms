@@ -1,0 +1,58 @@
+<header>
+  <h1>Form builder</h1>
+  <button class="logout" (click)="logout()">Log out</button>
+</header>
+<div class="builder silver-border">
+  <div class="accordions silver-border">
+    <mat-accordion>
+      <app-accordion-element
+        [title]="'Form'"
+        [formElementName]="'form'"
+      ></app-accordion-element>
+      <app-accordion-element
+        [title]="'Element'"
+        [formElementName]="formElementType$ | async | notNull"
+      ></app-accordion-element>
+    </mat-accordion>
+  </div>
+  <div
+    cdkDropList
+    #fieldsList="cdkDropList"
+    [cdkDropListData]="draggableFormElements"
+    [cdkDropListConnectedTo]="[formList]"
+    class="fields"
+    (cdkDropListDropped)="drop($event)"
+    cdkDropListOrientation="horizontal"
+  >
+    <app-form-element
+      *ngFor="let el of draggableFormElements"
+      [form]="upGroup"
+      [formElementName]="el.fieldName"
+      [key]="el.key"
+      [isChangable]="false"
+      cdkDrag
+    >
+      <div class="custom-placeholder" *cdkDragPlaceholder></div>
+    </app-form-element>
+  </div>
+  <form
+    [ngStyle]="formSectionStyles"
+    cdkDropList
+    #formList="cdkDropList"
+    [cdkDropListData]="droppedFormElements"
+    [cdkDropListConnectedTo]="[fieldsList]"
+    class="form-section silver-border"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-form-element
+      *ngFor="let el of droppedFormElements"
+      [form]="formSectionGroup"
+      [formElementName]="el.fieldName"
+      [key]="el.key"
+      [isChangable]="true"
+      cdkDrag
+    >
+      <div class="custom-placeholder" *cdkDragPlaceholder></div>
+    </app-form-element>
+  </form>
+</div>

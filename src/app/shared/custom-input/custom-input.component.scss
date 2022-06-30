@@ -1,0 +1,18 @@
+span {
+  width: 100%;
+  font-size: 0.5em;
+  text-align: left;
+  margin: 3rem 0 0.6rem 1em;
+}
+
+input {
+  height: 4em;
+  width: 100%;
+  outline: none;
+  text-indent: 1em;
+  border: solid 1px var(--silver-color);
+  color: var(--login-text-darkgrey-color);
+  &:focus {
+    border: solid 1px var(--login-theme-blue-color);
+  }
+}

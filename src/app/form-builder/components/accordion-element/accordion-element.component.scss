@@ -1,0 +1,28 @@
+.accordion-element-styles {
+  background-color: var(--smoke-white-color);
+  font-size: 1.3rem;
+  border: solid var(--silver-color) 1px;
+  margin: var(--2perc);
+  mat-expansion-panel-header {
+    height: 2rem;
+  }
+
+  .add {
+    button {
+      height: 3.3em;
+      border: solid grey 1px;
+    }
+  }
+}
+
+.form-styles {
+  font-size: 0.7rem;
+  div {
+    display: grid;
+    grid-template-columns: minmax(50%, auto) minmax(50%, auto);
+    margin: var(--2perc) 0;
+    label {
+      text-align: left;
+    }
+  }
+}
